@@ -1,0 +1,48 @@
+
+.hero-container {
+    height: rem(400);
+    max-height: 50vh;
+    
+
+    @include tablet() {
+        & {
+            height: rem(800);
+            max-height: 60vh;
+        }
+    }
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/public/images/california-camping.webp');
+    height: rem(400);
+    max-height: 50vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    gap: rem(10);
+
+    &__title {
+        font-size: rem(40);
+    }
+
+    &__description {
+        font-size: rem(20);
+    }
+
+    @include tablet() {
+        & {
+            height: rem(800);
+            max-height: 60vh;
+        }
+
+        &__title {
+            font-size: rem(60);
+        }
+    }
+}

@@ -1,0 +1,41 @@
+.list{
+    padding: 0;
+
+    &__item {
+        display: grid;
+        align-items: center;
+        list-style: none;
+        padding: 0px 20px;
+        width: 100%;
+
+        &--2cols {
+        grid-template-columns: 1fr 1fr;
+        }
+
+        &--3cols {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        &:hover {
+            background-color: #312822;
+            color: white;
+        }
+    }
+
+    &__item-button {
+        background-color: #5a452d;
+        color: white;
+        width: 100%;
+        padding: 10px;
+        border-radius: 0;
+        border: none;
+        outline: none;
+        font-size: 20px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #312822;
+            color: white;
+        }
+    }
+}

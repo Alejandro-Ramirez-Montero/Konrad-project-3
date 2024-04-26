@@ -1,0 +1,65 @@
+.feature-1 {
+    grid-area: feature1;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/public/images/camping-tent.jpg');
+    background-position-y: 65%;
+
+    &:hover, &:focus{
+        outline: 2px solid $light-white;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/public/images/camping-tent.jpg');
+    }
+}
+
+.feature-2 {
+    grid-area: feature2;
+    background-position-y: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/public/images/sleeping-bag.webp');
+
+    &:hover, &:focus {
+        outline: 2px solid $light-white;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/public/images/sleeping-bag.webp');
+    }
+}
+
+.feature-3 {
+    grid-area: feature3;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/public/images/camping-kitchen.jpg');
+    background-position-y: 85%;
+
+    &:hover, &:focus {
+        outline: 2px solid $light-white;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/public/images/camping-kitchen.jpg');
+    }
+}
+
+.feature-4 {
+    grid-area: feature4;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/public/images/camping-chair.jpg');
+    background-position-y: 75%;
+
+    &:hover, &:focus {
+        outline: 2px solid $light-white;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/public/images/camping-chair.jpg');
+    }
+}
+
+
+
+
+.simple-card {
+    border: none;
+    border-radius: 10px;
+    background-size: 100%;
+    cursor: pointer;
+
+    &__label {
+        color: white;
+        font-size: rem(20);
+        cursor: inherit;
+    }
+
+    @include tablet() {
+        &__label {
+            font-size: rem(30);
+        }
+    }
+}

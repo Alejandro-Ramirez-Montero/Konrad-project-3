@@ -1,0 +1,45 @@
+.section {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    z-index: 2;
+    padding: rem(40) rem(20);
+    text-align: left;
+    gap: rem(10);
+
+    &__title {
+        color: white;
+        font-size: rem(25);
+    }
+
+    &--brown {
+        background-color: $alternate-brown;
+    }
+
+    &--fallen-tree-bg {
+        background-color: #1a2729;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/public/images/redwoods-background.jpg');
+        background-size: 100%;
+        background-attachment: fixed;
+    }
+
+    &--woods-bg {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/public/images/woods-bg.jpg');
+        background-size: 100%;
+        background-attachment: fixed;
+        background-position-y: 100%;
+    }
+    
+    @include tablet() {
+
+        &--vh {
+            max-height: calc(100vh - rem(80));
+        }
+
+        &--h-hundred {
+            height: 100%;
+        }
+    }
+
+}

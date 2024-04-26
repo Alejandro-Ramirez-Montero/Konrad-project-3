@@ -1,0 +1,7 @@
+@mixin tablet {
+    @media (min-width: $breakpoint-xs) { @content; }
+}
+
+@mixin computer {
+    @media (min-width: $breakpoint-md) { @content; }
+}

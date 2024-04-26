@@ -1,0 +1,81 @@
+.header {
+    display: flex;
+    position: fixed;
+    align-items: center;
+    z-index: 10;
+    background-color: $light-green;
+    height: rem(80);
+    width: 100%;
+
+    &__logo {
+        object-fit: cover;
+        height: 200%;
+        margin-top: rem(8);
+        margin-left: rem(15);
+    }
+
+    &__menu-button {
+        height: 100%;
+        width: rem(80);
+        margin-left: auto;
+        background-color: $light-green;
+        border-radius: 0;
+        border: none;
+        outline: none;
+        cursor: pointer;
+
+        &:hover {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+        }
+        &:focus {
+            border: 2px solid $light-white;
+        }
+    }
+
+    &__menu {
+        position: absolute;
+        display: block;
+        top: 100%;
+        width: rem(200);
+        padding: 0;
+        list-style: none;
+        padding-top: rem(20);
+        height: calc(100vh - rem(80));
+        background-color: $light-white;
+
+        &--visible{
+            right: rem(-1);
+            transition: right 0.5s linear;
+        }
+
+        &--invisible {
+            right: rem(-200);
+            transition: right 0.5s linear;
+        }
+
+        @include tablet() {
+            & {
+                width: rem(400);
+            }
+            &--invisible {
+                right: rem(-400);
+            }
+        }
+    }
+}
+
+.item-button {
+    height: 100%;
+    width: 100%;
+    text-align: left;
+    font-size: rem(20);
+    font-weight: 500;
+    padding: rem(10) rem(20);
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover, &:focus{
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    }
+}

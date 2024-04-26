@@ -1,0 +1,18 @@
+.featured-categories-container {
+    display: grid;
+    grid-template-areas:
+        'feature1 feature1 feature2'
+        'feature3 feature4 feature4'
+    ;
+    height: rem(300);
+    width: 100%;
+    gap: rem(10);
+
+
+    @include tablet() {
+        & {
+            height: rem(600);
+            gap: rem(20);
+        }
+    }
+}
