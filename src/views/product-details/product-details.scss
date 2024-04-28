@@ -1,0 +1,71 @@
+
+.product {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    gap: 20px;
+
+    &__container {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        border-radius: 10px;
+        padding: 20px;
+        background-color: rgba($alternate-brown, 0.5);
+    }
+
+    &__details-container {
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    &__image {
+        align-self: center;
+        width: 60vw;
+        max-height: 60vh;
+        border-radius: 10px;
+
+    }
+
+    &__name {
+        font-size: 30px;
+        color: white;
+    }
+
+    &__price {
+        font-size: 25px;
+        color: $light-gray;
+    }
+
+    &__description {
+        color: $light-gray;
+    }
+
+    &__buy-button {
+        align-self: center;
+        background-color: brown;
+        color: white;
+        width: 200px;
+        height: 30px;
+        font-size: 20px;
+        border-radius: 5px;
+        border: none;
+
+        &:hover {
+            border: 2px solid rgb(255, 255, 255);
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), brown;
+            cursor: pointer;
+        }
+    }
+
+    @include tablet() {
+        & {
+            flex-direction: row;
+        }
+
+        &__image {
+            width: min(60vh, 100%);
+        }
+    }
+}

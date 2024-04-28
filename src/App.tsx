@@ -4,9 +4,9 @@ import SideBar from './components/side-bar/side-bar';
 import Modal from './components/modal/modal';
 import { Route, Routes } from 'react-router-dom';
 
-import Home from './views/home/home';
 import Playlist from './views/playlist/playlist';
-
+import Home from './views/home/home';
+import ProductDetails from './views/product-details/product-details';
 
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
@@ -25,6 +25,7 @@ function App() {
         <Header/>
         <Routes>
           <Route path="/" element={<Home/>}/>
+          <Route path="/product-details/:productName" element={<ProductDetails/>}/>
         </Routes>
         <Footer/>
       </div>

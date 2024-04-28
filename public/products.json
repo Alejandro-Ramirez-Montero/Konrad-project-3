@@ -1,0 +1,101 @@
+[
+    {
+      "name": "Disc-O-Bed",
+      "description": "Whether you are camping in the back country or hosting family and friends for the night, you can rest easy knowing everyone will be comfortable. When space is at a premium the Disc-O-Bed L is exactly what your need, giving you a supportive and comfortable sleep - wherever your adventures may take you. This versatile, ready-to-go bunkable cot - with its patented lock-in disc system - makes for an easy, one person assembly that is tool-free and only takes a few minutes to set up using the step by step instructions. Good to know that the Disc-O-Bed L also fits a broad range of tents and dome structures commonly used in recreational camping.",
+      "price": "200",
+      "image": "/public/api-images/Disc-O-Bed.jpg",
+      "categories": [
+        "Bags and Beds"
+      ]
+    },
+    {
+        "name": "Venture Forward Youth Backyard 50° Rectangle Sleeping Bag",
+        "description": "Perfect for summer nights by the campfire, the Venture Forward Youth Backyard 50° Rectangle Sleeping Bag has a polyester silk-touch 75-denier lining and durable polyester shell. The Backyard Sleeping Bag features a no-snag zipper for easy opening and closing and includes a carry bag with backpack-style carry strap so packing up is easy.",
+        "price": "19.77",
+        "image": "/public/api-images/venture-sleeping-bag.jpg",
+        "categories": [
+            "Bags and Beds"
+        ]
+    },
+    {
+        "name": "Camper's choice Backwoods Camp Cot",
+        "description": "With the Camper's Choice Backwoods Camp Cot, wherever you lay your head is home. This low-profile portable bed is constructed from a strong, stable 25mm HD steel frame and rugged, 600-denier polyester fabric for years of use. The cot folds in half and its legs convert into carry handles for easy transport. Weight Capacity: 300 lbs.",
+        "price": "75.99",
+        "image": "/public/api-images/Backwoods-camp-cot.jpg",
+        "categories": [
+            "Bags and Beds"
+        ]
+    },
+    {
+        "name": "MacSports Club Chair",
+        "description": "Extra spacious to allow comfort for everyone, the MacSports Club Chair can be used indoors or outdoors, at the beach, campsite, backyard, anywhere you need comfortable seating. This padded, cozy, comfy chair is made with durable, water-resistant polyester fabric to withstand even harsh outdoor conditions. The powder-coated steel frame supports up to 225 lbs. but only weighs 18 lbs. to allow easy transport in its carrying case.",
+        "price": "89.99",
+        "image": "/public/api-images/club-chair.jpg",
+        "categories": [
+            "Chairs and Tables"
+        ]
+    },
+    {
+        "name": "MacSports Outdoor Folding Ottoman",
+        "description": "The MacSports Padded Folding Ottoman has a contemporary appeal and a highly functional design, making it great for dorms, patios, living rooms, and virtually any indoor or outdoor use. The tubular steel frame provides a strong and sturdy base while non-skid footpads help ensure stability. The body is made of weather-resistant 600D polyester material for durability and is padded for extreme comfort. The Outdoor Ottoman folds down to just a few inches in diameter for out-of-the-way storage.",
+        "price": "19.79",
+        "image": "/public/api-images/folding-ottoman.jpg",
+        "categories": [
+            "Chairs and Tables"
+        ]
+    },
+    {
+        "name": "Venture Forward Ultimate LoungR Cot",
+        "description": "The Ultimate LoungR Cot is the ultimate solution for anyone looking for a place to rest while outdoors. Find the perfect angle with the adjustable headrest for maximum comfort. The soft padded cover and bungee suspension deliver gentle support, while the oversized swivel feet add stability.",
+        "price": "159.99",
+        "image": "/public/api-images/venture-cot.jpg",
+        "categories": [
+            "Bags and Beds"
+        ]
+    },
+    {
+        "name": "Sports Chair",
+        "description": "The Sports Chair is the perfect outdoor folding chair for anywhere you travel. Camping, tailgating, or a backyard picnic, the Sports Chair gives you a comfortable place to relax. Made with a durable steel frame and 600D polyester fabric with PE coating. Features a handy built-in cupholder. The chair folds up easily and fits into the included matching carry bag with shoulder strap. 225-lb. weight capacity.",
+        "price": "14.99",
+        "image": "/public/api-images/sports-chair.jpg",
+        "categories": [
+            "Chairs and Tables"
+        ]
+    },
+    {
+        "name": "Blackstone On The Go 22 Tabletop Griddle with Side Burner",
+        "description": "Take outdoor cooking with you on all your adventures with the Blackstone On The Go 22 Tabletop Griddle with Side Burner. The rolled steel griddle top lets you cook all your favorites from pancakes to steaks to stir fry and more. The handy side burner is great for frying up wings or cooking other side dishes. With a combined 36,000 BTUs between 3 burners, this griddle heats quickly and effectively so you can start cooking in no time.",
+        "price": "239.99",
+        "image": "/public/api-images/tabletop-griddle-with-side-burner.jpg",
+        "categories": [
+            "Camping Kitchen"
+        ]
+    },
+    {
+        "name": "Char Griller Super Pro Grill",
+        "description": "The grill that started it all. The Char-Griller Super Pro Charcoal Grill is the grill of choice for professionals and backyard grilling enthusiasts! Made of heavy-duty steel, this grill will last for years to come with the proper care. With 850 square inches of grilling capacity, the Super Pro can hold 34 burgers at a time. That's enough for the whole crew! Side Fire Box compatible, you can even turn the Super Pro into a Texas-style smoker.",
+        "price": "99.97",
+        "image": "/public/api-images/char-griller.jpg",
+        "categories": [
+            "Camping Kitchen"
+        ]
+    },
+    {
+        "name": "Zempire EVO TXL V2 Family Tent",
+        "description": "The Zempire EVO TXL V2 is a mid-range family tent that's been redesigned from the ground up with improved ventilation, durability, and comfort. This is the largest tent in the EVO range with extensive living space and awning area plus the new Multi-Room Inner offering multiple bedroom configurations, making this tent the ultimate combination of durability and portability.",
+        "price": "2299",
+        "image": "/public/api-images/zempire-tent.jpg",
+        "categories": [
+            "Camping Tents"
+        ]
+    },
+    {
+        "name": "Bushnell 9 Person Outdoorsman Instant Cabin Tent",
+        "description": "The Bushnell 9 Person Instant Cabin Tent features the latest in tent technology. Instant Setup Technology allows your camp to be set up in 60 seconds so you can spend more time in the outdoors. Water repellent fabric and fully taped waterproof seams seal-off your tent from the rain while strong frame construction and heavy duty tie-downs stand tough against the wind.",
+        "price": "431.99",
+        "image": "/public/api-images/bushell-instant-tent.jpg",
+        "categories": [
+            "Camping Tents"
+        ]
+    }
+]
