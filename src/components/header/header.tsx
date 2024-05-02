@@ -1,14 +1,20 @@
 import React, {useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { FaBars } from "react-icons/fa6";
 import './styles.scss';
 
 //AGREGAR EL REDIRECCIONAMIENTO DEL MENU
 
-const Header:React.FC<{}> = ({}) => {
+const Header:React.FC<{scrollToFooter: () => void}> = ({scrollToFooter}) => {
     const [oppenedMenu, setOppenedMenu] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     const handleMenu = () => {
         setOppenedMenu(!oppenedMenu);
+    }
+
+    const navigateTo = (location: string) => {
+        navigate(location, { replace: true });
     }
 
     return(
@@ -18,9 +24,9 @@ const Header:React.FC<{}> = ({}) => {
                 <FaBars color="white" size={30}/>
             </button>
             <ul className={`header__menu ${oppenedMenu? 'header__menu--visible':'header__menu--invisible'}`}>
-                <li><button className="item-button" tabIndex={oppenedMenu? 0: -1} onclick="handleMenuOption('featured-section')">Featured Categories</button></li>
-                <li><button className="item-button" tabIndex={oppenedMenu? 0: -1} onclick="handleMenuOption('products-section')">Our Products</button></li>
-                <li><button className="item-button" tabIndex={oppenedMenu? 0: -1} onclick="handleMenuOption('footer')">Socials and Legal Disclaimer</button></li>
+                <li><button className="item-button" tabIndex={oppenedMenu? 0: -1} onClick={() => navigateTo('/?id=featured-section')}>Featured Categories</button></li>
+                <li><button className="item-button" tabIndex={oppenedMenu? 0: -1} onClick={() => navigateTo('/products-list/?id=products-section')}>Our Products</button></li>
+                <li><button className="item-button" tabIndex={oppenedMenu? 0: -1} onClick={scrollToFooter}>Socials and Legal Disclaimer</button></li>
             </ul>
         </div>
     );

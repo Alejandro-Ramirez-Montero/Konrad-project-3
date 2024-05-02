@@ -1,33 +1,35 @@
-import { useState } from 'react'
+import React, { useRef } from 'react';
+
 import './App.scss'
-import SideBar from './components/side-bar/side-bar';
-import Modal from './components/modal/modal';
 import { Route, Routes } from 'react-router-dom';
 
-import Playlist from './views/playlist/playlist';
 import Home from './views/home/home';
 import ProductDetails from './views/product-details/product-details';
+import ProductsList from './views/products-list/products-list';
 
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
 
 function App() {
-  const [searchParam, setSearchParam] = useState<string>('');
-  //const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const footerRef = useRef<HTMLDivElement>(null);
 
-  //<SideBar setModalOpen={setModalOpen(true)}></SideBar>
-  //<Modal modalOpen={modalOpen}></Modal>
+  const scrollToFooter = () => {
+    if (footerRef.current) {
+      footerRef.current.scrollIntoView({
+        behavior: 'smooth', // Habilita el desplazamiento suave
+      });
+    }
+  };
 
-  //{<Route path="/" element={<Home />} />}
-  //<Route path="playlist" element={<Playlist />} />
   return (
       <div className='body'>
-        <Header/>
+        <Header scrollToFooter={scrollToFooter}/>
         <Routes>
           <Route path="/" element={<Home/>}/>
-          <Route path="/product-details/:productName" element={<ProductDetails/>}/>
+          <Route path="/product-details/:productPath" element={<ProductDetails/>}/>
+          <Route path="/products-list" element={<ProductsList/>}/>
         </Routes>
-        <Footer/>
+        <Footer footerRef={footerRef}/>
       </div>
   )
 }

@@ -1,0 +1,60 @@
+
+.filters {
+    display: flex;
+    padding: rem(10);
+    background-color: brown;
+}
+
+.filters__dropdowns-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: rem(10);
+    width: 100%;
+    border-radius: 5px;
+
+    @include tablet() {
+        & {
+            display: flex;
+            flex-wrap: wrap;
+            padding-right: rem(10);
+        }
+    }    
+}
+
+.filters-button {
+    height: rem(40);
+    width: 100%;
+    background-color: $light-green;
+    color: white;
+    border: 1px solid white;
+    outline: none;
+    border-radius: 5px;
+    
+    &:hover, &:focus {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+        cursor: pointer;
+    }
+
+    &--s-screen {
+        display: block;
+    }
+
+    &--m-screen {
+        display: none;
+    }
+
+    @include tablet() {
+        & {
+            margin-left: auto;
+            width: min(rem(180), 100%);
+        }
+
+        &--s-screen {
+            display: none;
+        }
+    
+        &--m-screen {
+            display: block;
+        }
+    }
+}

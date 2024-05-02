@@ -20,7 +20,8 @@
 }
 
 .main {
-    display: block;
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
     background-color: $alternate-brown;
     min-height: fit-content;

@@ -1,24 +1,19 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent} from "react";
 import './styles.scss';
 
-type SetSearchParamsFunction = (newSearchParam: string) => void;
+type SetSearchFunction = (newSearch: string) => void;
 
-const SearchBar: React.FC<{setSearchParam: SetSearchParamsFunction}> = ({setSearchParam}) => {
-    const [searchInput, setSearchInput] = useState<string>('');
+const Searchbar: React.FC<{setSearch: SetSearchFunction, search:string}> = ({setSearch, search}) => {
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setSearchInput(e.target.value);
-    }
-
-    const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if(e.key === 'Enter'){
-            setSearchParam(searchInput);
-        }
+        setSearch(e.target.value);
     }
 
     return(
-        <input type="text" name="searchbar" id="searchbar" value={searchInput} onChange={handleInputChange} onKeyDown={handleSearch}/>
+        <div className="searchbar-container">
+            <input className="searchbar" type="text" name="searchbar" id="searchbar" aria-label="product searchbar" placeholder="Search" value={search} onChange={handleInputChange}/>
+        </div>
     );
 }
 
- export default SearchBar;
+ export default Searchbar;

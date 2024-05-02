@@ -1,0 +1,60 @@
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+    padding-top: 20px;
+
+    &__button {
+        width: 100px;
+        height: 30px;
+        background-color: $alternate-brown;
+        font-size: 20px;
+        color: white;
+        border: none;
+        border-radius: 5px;
+
+        &:not(:disabled):hover  {
+            border: 2px solid rgb(255, 255, 255);
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), $alternate-brown;
+            cursor: pointer;
+        }
+
+        &:focus {
+            outline: 2px solid $light-white;
+        }
+
+        &:disabled{
+            cursor:default;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), $alternate-brown;
+            color:  rgba(255, 255, 255, 0.5);
+        }
+    }
+
+    &__button-number {
+        width: 40px;
+        height: 30px;
+        background-color: $alternate-brown;
+        font-size: 20px;
+        color: white;
+        border: none;
+        border-radius: 5px;
+
+        &:not(:disabled):hover  {
+            border: 2px solid rgb(255, 255, 255);
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), $alternate-brown;
+            cursor: pointer;
+        }
+
+        &:focus {
+            outline: 2px solid $light-white;
+        }
+
+        &:disabled{
+            cursor:default;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), $alternate-brown;
+            color:  rgba(255, 255, 255, 0.5);
+        }
+    }    
+}

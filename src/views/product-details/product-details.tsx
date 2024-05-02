@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 interface productInterface {
   name: string,
+  path: string,
   description: string,
   price: string,
   image: string,
@@ -14,15 +15,14 @@ interface productInterface {
 }
 
 function ProductDetails() {
-  const { productName } = useParams<{productName: string}>();
-  const cleanProductName = productName?.replace(/-/g, ' ');
+  const { productPath } = useParams<{productPath: string}>();
   const [product, setProduct] = useState<productInterface>();
 
   const getProduct = () => {
     fetch('../../../public/products.json')
     .then(response => response.json())
     .then((data: Array<productInterface>) => {
-      setProduct(data.find(dataProduct => cleanProductName?.toLowerCase() === dataProduct.name.toLowerCase()));
+      setProduct(data.find(dataProduct => productPath?.toLowerCase() === dataProduct.path.toLowerCase()));
     })
     .catch();
   }

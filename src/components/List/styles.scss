@@ -1,41 +1,89 @@
-.list{
+
+.product-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    list-style: none;
     padding: 0;
+    margin: 0;
+    gap: rem(20);
 
-    &__item {
-        display: grid;
-        align-items: center;
-        list-style: none;
-        padding: 0px 20px;
+    &__container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        text-align: justify;
+        height: rem(300);
         width: 100%;
+        background-color: brown;
+        border-radius: 10px;
+        border: none;
+        padding: rem(10);
+        margin: 0;
+        gap: rem(5);
+        overflow: hidden;
+    }
 
-        &--2cols {
-        grid-template-columns: 1fr 1fr;
-        }
+    &__container-hover {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        padding-bottom: rem(10);
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: black;
+        opacity: 0;
+        border-radius: rem(10);
+        color: white;
+        font-size: rem(18);
+        outline: none;
+        cursor: pointer;
 
-        &--3cols {
-            grid-template-columns: 1fr 1fr 1fr;
-        }
-
-        &:hover {
-            background-color: #312822;
-            color: white;
+        &:hover, &:focus{
+            outline: 2px solid $light-white;
+            opacity: 0.5;
         }
     }
 
-    &__item-button {
-        background-color: #5a452d;
-        color: white;
-        width: 100%;
-        padding: 10px;
-        border-radius: 0;
-        border: none;
-        outline: none;
-        font-size: 20px;
-        cursor: pointer;
+    &__image {
+        align-self: center;
+        width: auto;
+        height: 67%;
+        max-height: calc((100vw - rem(20) * 3 - rem(10) * 4) / 2);
+        background-color: $light-beige;
+        border-radius: 5px;
+    }
 
-        &:hover {
-            background-color: #312822;
-            color: white;
+    &__name {
+        color: white;
+        text-align: left;
+    }
+
+    &__price {
+        color: $light-gray;
+    }
+
+    @include tablet() {
+        & {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        &__image {
+            max-height: calc((100vw - rem(20) * 4 - rem(10) * 6) / 3);
+        }
+    }
+
+    @include computer() {
+        & {
+            gap: 40px;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        }
+
+        &__image {
+            max-height: calc((100vw - rem(40) * 6 - rem(10) * 10) / 5);
         }
     }
 }

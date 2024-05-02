@@ -2,9 +2,9 @@ import { FaFacebookSquare, FaInstagramSquare} from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import './styles.scss';
 
-const Footer:React.FC<{}> = ({}) => {
+const Footer:React.FC<{footerRef: React.RefObject<HTMLDivElement>}> = ({footerRef}) => {
     return(
-        <div className="footer" id="footer">
+        <div className="footer" id="footer" ref={footerRef}>
             <div className="footer__year-container" id="year-small-screen">
                 <p>2024</p>
             </div>
