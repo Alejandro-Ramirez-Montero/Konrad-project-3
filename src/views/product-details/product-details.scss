@@ -4,20 +4,20 @@
     flex-direction: column;
     height: 100%;
     width: 100%;
-    gap: 20px;
+    gap: rem(20);
 
     &__container {
         display: flex;
         flex: 1;
         flex-direction: column;
         border-radius: 10px;
-        padding: 20px;
+        padding: rem(20);
         background-color: rgba($alternate-brown, 0.5);
     }
 
     &__details-container {
         justify-content: space-between;
-        gap: 20px;
+        gap: rem(20);
     }
 
     &__image {
@@ -29,12 +29,12 @@
     }
 
     &__name {
-        font-size: 30px;
+        font-size: rem(30);
         color: white;
     }
 
     &__price {
-        font-size: 25px;
+        font-size: rem(25);
         color: $light-gray;
     }
 
@@ -42,13 +42,19 @@
         color: $light-gray;
     }
 
+    &__buy-container {
+        display: flex;
+        justify-content: center;
+        gap: rem(10);
+    }
+
     &__buy-button {
         align-self: center;
         background-color: brown;
         color: white;
-        width: 200px;
-        height: 30px;
-        font-size: 20px;
+        width: min(100%, rem(200));
+        height: rem(30);
+        font-size: rem(20);
         border-radius: 5px;
         border: none;
 

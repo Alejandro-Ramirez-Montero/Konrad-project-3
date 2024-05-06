@@ -4,6 +4,11 @@
     padding: rem(10);
     border-radius: rem(5);
     border: none;
+    cursor:text;
+
+    &:hover:not(:focus) {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+    }
 
     &:focus {
         outline: 3px solid $light-green;

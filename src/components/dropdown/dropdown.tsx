@@ -8,13 +8,15 @@ interface DropdownProps {
     addFilter: (field: string, option: string) => void;
     options: Array<string>;
     defaultOption?: string;
+    firstOption?: string;
     clearFilter: boolean;
 
 }
 
-const Dropdown:React.FC<DropdownProps> = ({title, field, disabled, addFilter, options, defaultOption, clearFilter}) => {
+const Dropdown:React.FC<DropdownProps> = ({title, field, disabled, addFilter, options, defaultOption, firstOption, clearFilter}) => {
     const [showDropdown, setShowDropdown] = useState<boolean>();
-    const [activeOption, setActiveOption] = useState<string>(defaultOption? defaultOption : 'Select');
+    const [firstRender, setFirstRender] = useState<boolean>(true);
+    const [activeOption, setActiveOption] = useState<string>(firstOption? firstOption : (defaultOption? defaultOption : 'Select'));
 
     const handleOption = (option:string) => {
         setShowDropdown(false);
@@ -23,7 +25,12 @@ const Dropdown:React.FC<DropdownProps> = ({title, field, disabled, addFilter, op
     }
 
     useEffect(() => {
-        setActiveOption(defaultOption? defaultOption : 'Select');
+        if(firstRender){
+            setFirstRender(false);
+        }
+        else{
+            setActiveOption(defaultOption? defaultOption : 'Select');
+        }
     }, [clearFilter]);
 
     return(

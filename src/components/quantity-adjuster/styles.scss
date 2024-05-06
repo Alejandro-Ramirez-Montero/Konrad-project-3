@@ -1,0 +1,31 @@
+.quantity-adjuster {
+    display: flex;
+
+
+    &__button {
+        text-align: center;
+        background-color: brown;
+        color: white;
+        height: rem(30);
+        width: rem(30);
+        font-size: rem(20);
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+
+        &:hover:not(:disabled) {
+            border: 2px solid rgb(255, 255, 255);
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), brown;
+        }
+
+        &:disabled {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), brown;
+        }
+    }
+
+    &__input {
+        width: rem(30);
+        height: rem(30);
+        padding: 0px 5px;
+    }
+}

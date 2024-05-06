@@ -3,13 +3,14 @@ import './styles.scss';
 interface SimpleCardProps {
     title: string;
     classes: string;
+    buttonAction: () => void;
 }
 
 //ARREGLAR onCLick
 
-const SimpleCard:React.FC<SimpleCardProps> = ({title, classes}) => {
+const SimpleCard:React.FC<SimpleCardProps> = ({title, classes, buttonAction}) => {
     return(
-        <button className={'simple-card ' + classes} onclick="addDropdownFilter('category', 'Camping Tents')">
+        <button className={'simple-card ' + classes} onClick={buttonAction}>
             <p className="simple-card__label">{title}</p>
         </button>
     );

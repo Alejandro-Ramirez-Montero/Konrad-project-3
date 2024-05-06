@@ -9,6 +9,7 @@ import ProductsList from './views/products-list/products-list';
 
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
+import Cart from './views/cart/cart';
 
 function App() {
   const footerRef = useRef<HTMLDivElement>(null);
@@ -28,6 +29,7 @@ function App() {
           <Route path="/" element={<Home/>}/>
           <Route path="/product-details/:productPath" element={<ProductDetails/>}/>
           <Route path="/products-list" element={<ProductsList/>}/>
+          <Route path="/cart" element={<Cart/>}/>
         </Routes>
         <Footer footerRef={footerRef}/>
       </div>

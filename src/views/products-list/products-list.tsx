@@ -1,7 +1,7 @@
 import './products-list.scss'
 import { useEffect, useState } from 'react';
 import { useRecoilState } from "recoil";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import Section from '../../components/section/section'
 import Dropdown from '../../components/dropdown/dropdown';
@@ -35,14 +35,19 @@ interface pageInterface {
 
 function ProductsList() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const category = queryParams.get('category');
 
+  
   const [productsList, setProductsList] = useState<Array<productInterface>>();
   const [activeList, setActiveList] = useState<Array<productInterface>>([]);
   const [page, setPage] = useState<pageInterface>({itemsPerPage: 10, currentPage: 0, lastPage: 0});
   const [categories, setCategories] = useState<Array<string>>([]);
-  const [filters, setFilters] = useState<filtersInterface>({category: '', order: 'Price', sort:'Ascending', priceRange:''});
+  const [filters, setFilters] = useState<filtersInterface>({category: category? category.replace(/-/g, ' ') : '', order: 'Price', sort:'Ascending', priceRange:''});
   const [search, setSearch] = useState<string>('');
   const [clearFilters, setClearFilters] = useState<boolean>(false);
+  const [firstRender, setFirstRender] = useState<boolean>(true);
 
   const [filteredList, setFilteredList] = useRecoilState<{productsList: Array<productInterface>}>(productsListState);
 
@@ -51,7 +56,6 @@ function ProductsList() {
     .then(response => response.json())
     .then((data: Array<productInterface>) => {
       setProductsList(data);
-      console.log(data);
     })
     .catch();
   }
@@ -141,7 +145,7 @@ function ProductsList() {
     return range
   }
 
-  //Traerse la lista de productos
+  //Traerse la lista de productos aplicar filtro de categoria si viene en parametro
   useEffect(() =>{
     getProducts();
   },[]);
@@ -171,12 +175,17 @@ function ProductsList() {
   },[page]);
 
   useEffect(() =>{
-    setClearFilters(!clearFilters);
+    if(search != ''){
+      setClearFilters(!clearFilters);
+    }
   },[search]);
 
   //limpiar los filtros
   useEffect(() =>{
-    if(filters.category !== '' || filters.order !== 'Price' || filters.sort !== 'Ascending' || filters.priceRange !== ''){
+    if(firstRender){
+      setFirstRender(false);
+    }
+    else if(filters.category !== '' || filters.order !== 'Price' || filters.sort !== 'Ascending' || filters.priceRange !== ''){
       setFilters({category: '', order: 'Price', sort:'Ascending', priceRange: ''});
     }
   },[clearFilters]);
@@ -189,7 +198,7 @@ function ProductsList() {
               <div className="filters">
                 <div className='filters__dropdowns-container'>
                   <Searchbar search={search} setSearch={setSearch}/>
-                  <Dropdown title='Category' field='category' disabled={search !== ''? true : false} addFilter={addFilter} options={categories} clearFilter={clearFilters}/>
+                  <Dropdown title='Category' field='category' disabled={search !== ''? true : false} addFilter={addFilter} options={categories} clearFilter={clearFilters} firstOption={category? category.replace(/-/g, ' ') : undefined}/>
                   <Dropdown title='Order by' field='order' disabled={search !== ''? true : false} addFilter={addFilter} options={['Name', 'Price']} defaultOption='Price' clearFilter={clearFilters}/>
                   <Dropdown title='Sort' field='sort' disabled={search !== ''? true : false} addFilter={addFilter} options={['Ascending', 'Descending']} defaultOption='Ascending' clearFilter={clearFilters}/>
                   <Dropdown title='Price Range' field='priceRange' disabled={search !== ''? true : false} addFilter={addFilter} options={['$0 - $49.99', '$50 - $99.99', '$100 - $149.99', '$150+']} clearFilter={clearFilters}/>

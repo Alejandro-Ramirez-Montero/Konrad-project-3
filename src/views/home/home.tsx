@@ -13,8 +13,8 @@ function Home() {
   const location = useLocation();
   const featuredCategoriesRef = useRef<HTMLDivElement>(null);
 
-  const navigateTo = (location: string) => {
-    navigate(location, { replace: true });
+  const navigateTo = (category: string) => {
+    navigate('/products-list/?id=products-section&category=' + category);
   }
 
   useEffect(() =>{
@@ -32,10 +32,10 @@ function Home() {
         <div ref={featuredCategoriesRef} style={{position: 'absolute', marginTop: '-350px'}} />
         <Section title='Featured Categories:' classes='section--brown section--vh'>
           <div className='featured-categories-container'>
-            <SimpleCard classes='feature-1' title={'Camping Tents'} navigateTo={navigateTo('/products-list/?id=featured-section')}/>
-            <SimpleCard classes='feature-2' title={'Bags and Beds'} navigateTo={navigateTo('/products-list/?id=featured-section')}/>
-            <SimpleCard classes='feature-3' title={'Camping Kitchen'} navigateTo={navigateTo('/products-list/?id=featured-section')}/>
-            <SimpleCard classes='feature-4' title={'Chairs and Tables'} navigateTo={navigateTo('/products-list/?id=featured-section')}/>
+            <SimpleCard classes='feature-1' title={'Camping Tents'} buttonAction={() => navigateTo('Camping-Tents')}/>
+            <SimpleCard classes='feature-2' title={'Bags and Beds'} buttonAction={() => navigateTo('Bags-and-Beds')}/>
+            <SimpleCard classes='feature-3' title={'Camping Kitchen'} buttonAction={() => navigateTo('Camping Kitchen')}/>
+            <SimpleCard classes='feature-4' title={'Chairs and Tables'} buttonAction={() => navigateTo('Chairs-and-Tables')}/>
           </div>
         </Section>
       </main>
