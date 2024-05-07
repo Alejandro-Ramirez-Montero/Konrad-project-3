@@ -1,0 +1,16 @@
+
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: $light-green;
+
+    &__logo {
+        object-fit:cover;
+        height: 140px;
+        width: 300px;
+    }
+}

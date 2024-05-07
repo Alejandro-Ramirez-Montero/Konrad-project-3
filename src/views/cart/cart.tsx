@@ -1,5 +1,7 @@
 import './cart.scss'
 import { useEffect, useState } from 'react';
+import { cartNotificationState } from '../../states/cart-notification-state';
+import { useSetRecoilState } from 'recoil';
 
 import Section from '../../components/section/section'
 import SimpleList from '../../components/simple-list/simple-list';
@@ -23,6 +25,7 @@ interface cartProductInterface {
 
 function Cart() {
   const [cart, setCart] = useState<Array<cartProductInterface> | null>(null);
+  const setCartNotifications = useSetRecoilState<number>(cartNotificationState);
 
   const getProducts = () => {
     if(localStorage.getItem('cart')){
@@ -62,6 +65,12 @@ function Cart() {
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
+    if(cart){
+      setCartNotifications(cart.length);
+    }
+    else{
+      setCartNotifications(0);
+    }
   },[cart]);
 
   return (

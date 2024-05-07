@@ -1,0 +1,60 @@
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 300px;
+    width: 400px;
+    padding: 40px;
+    background-color: $logo-blue;
+    border-radius: 10px;
+    gap: 20px;
+    color: $logo-light-green;
+
+    &__col {
+        display: flex;
+        flex-direction: column;
+        text-align: justify;
+        font-size: 20px;
+        gap: 2px;
+    }
+
+    &__input {
+        padding: 5px;
+        border-radius: 2px;
+        border: none;
+        cursor:text;
+
+        &:focus {
+            outline: 3px solid $light-green;
+        }
+    }
+
+    &__alert-message {
+        color: crimson;
+
+        &--hide {
+            color: transparent;
+        }
+    }
+
+    &__button {
+        align-self: center;
+        background-color: $light-green;
+        color: white;
+        width: 200px;
+        font-size: 20px;
+        border-radius: 5px;
+        border: 2px solid transparent;
+        outline: none;
+        padding: 2px;
+        cursor: pointer;
+
+        &:hover, &:focus {
+            border: 2px solid rgb(255, 255, 255);
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), $light-green;
+        }
+
+    }
+
+}

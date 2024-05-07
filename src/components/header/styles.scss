@@ -23,6 +23,7 @@
     }
 
     &__button {
+        position: relative;
         height: 100%;
         width: rem(80);
         background-color: $light-green;
@@ -41,6 +42,19 @@
         &:focus {
             border: 2px solid $light-white;
         }
+    }
+
+    &__notification {
+        position: absolute;
+        height: rem(12);
+        width: rem(12);
+        top: rem(20);
+        left: rem(48);
+        background-color: red;
+        color: white;
+        border-radius: 100%;
+        cursor: inherit;
+
     }
 
     &__menu {

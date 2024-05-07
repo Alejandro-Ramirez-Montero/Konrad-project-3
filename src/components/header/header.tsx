@@ -1,11 +1,14 @@
-import React, {useState } from "react";
+import React, {useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { FaBars } from "react-icons/fa6";
 import { FaShoppingCart } from "react-icons/fa";
 import './styles.scss';
+import { useRecoilState} from "recoil";
+import { cartNotificationState } from "../../states/cart-notification-state";
 
 
 const Header:React.FC<{scrollToFooter: () => void}> = ({scrollToFooter}) => {
+    const [cartNotifications, setCartNotifications] = useRecoilState<number>(cartNotificationState);
     const [oppenedMenu, setOppenedMenu] = useState<boolean>(false);
     const navigate = useNavigate();
 
@@ -18,11 +21,18 @@ const Header:React.FC<{scrollToFooter: () => void}> = ({scrollToFooter}) => {
         navigate(location);
     }
 
+    useEffect(() => {
+        if(localStorage.getItem('cart') && JSON.parse(localStorage.getItem('cart')!)){
+            setCartNotifications(JSON.parse(localStorage.getItem('cart')!).length);
+        }
+    }, []);
+
     return(
         <div className="header">
             <img className="header__logo" src="/logo/logo.png" alt="CampGear logo"></img>
-            <button className="header__button header__button--right" onClick={() => navigate('/cart')}>
+            <button className="header__button header__button--right" aria-label="Cart" onClick={() => navigate('/cart')}>
                 <FaShoppingCart className="header__icon" color="white" size={30}/>
+                {cartNotifications !== 0? <div className="header__notification"></div> : <></>}
             </button>
             <button className="header__button" aria-label="Menu" onClick={handleMenu}>
                 <FaBars className="header__icon" color="white" size={30}/>

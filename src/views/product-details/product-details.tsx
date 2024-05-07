@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 
 import Section from '../../components/section/section'
 import QuantityAdjuster from '../../components/quantity-adjuster/quantity-adjuster';
+import { cartNotificationState } from '../../states/cart-notification-state';
+import { useSetRecoilState } from 'recoil';
 
 interface productInterface {
   name: string,
@@ -26,6 +28,7 @@ function ProductDetails() {
   const { productPath } = useParams<{productPath: string}>();
   const [product, setProduct] = useState<productInterface>();
   const [resetQuantity, setResetQuantity] = useState<boolean>(false);
+  const setCartNotifications = useSetRecoilState<number>(cartNotificationState);
   let quantity = 1;
 
   const getProduct = () => {
@@ -62,6 +65,7 @@ function ProductDetails() {
         cart.push(cartProduct);
       }
       localStorage.setItem('cart', JSON.stringify(cart));
+      setCartNotifications(cart.length);
       setResetQuantity(!resetQuantity);
       window.alert(`Added ${quantity} ${product.name} to cart.`);
     }
