@@ -1,5 +1,5 @@
 import './product-details.scss'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import Section from '../../components/section/section'
@@ -30,6 +30,7 @@ function ProductDetails() {
   const [resetQuantity, setResetQuantity] = useState<boolean>(false);
   const setCartNotifications = useSetRecoilState<number>(cartNotificationState);
   let quantity = 1;
+  const navigate = useNavigate();
 
   const getProduct = () => {
     fetch('../../../public/products.json')

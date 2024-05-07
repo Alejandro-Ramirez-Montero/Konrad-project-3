@@ -3,25 +3,25 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 300px;
-    width: 400px;
-    padding: 40px;
+    height: rem(300);
+    width: rem(300);
+    padding: rem(40);
     background-color: $logo-blue;
     border-radius: 10px;
-    gap: 20px;
+    gap: rem(20);
     color: $logo-light-green;
 
     &__col {
         display: flex;
         flex-direction: column;
         text-align: justify;
-        font-size: 20px;
-        gap: 2px;
+        font-size: rem(20);
+        gap: rem(2);
     }
 
     &__input {
-        padding: 5px;
-        border-radius: 2px;
+        padding: rem(5);
+        border-radius: rem(2);
         border: none;
         cursor:text;
 
@@ -42,12 +42,12 @@
         align-self: center;
         background-color: $light-green;
         color: white;
-        width: 200px;
-        font-size: 20px;
+        width: rem(200);
+        font-size: rem(20);
         border-radius: 5px;
         border: 2px solid transparent;
         outline: none;
-        padding: 2px;
+        padding: rem(2);
         cursor: pointer;
 
         &:hover, &:focus {
@@ -55,6 +55,12 @@
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), $light-green;
         }
 
+    }
+
+    @include tablet() {
+        &{
+            width: rem(400);
+        }
     }
 
 }

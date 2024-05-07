@@ -30,7 +30,7 @@
     outline: none;
     border-radius: 5px;
     
-    &:hover, &:focus {
+    &:hover, &:focus-visible {
         background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
         cursor: pointer;
     }

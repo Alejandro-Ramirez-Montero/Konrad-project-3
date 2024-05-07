@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './styles.scss';
 
 interface DropdownProps {
@@ -17,11 +17,18 @@ const Dropdown:React.FC<DropdownProps> = ({title, field, disabled, addFilter, op
     const [showDropdown, setShowDropdown] = useState<boolean>();
     const [firstRender, setFirstRender] = useState<boolean>(true);
     const [activeOption, setActiveOption] = useState<string>(firstOption? firstOption : (defaultOption? defaultOption : 'Select'));
+    const dropdownRef = useRef<HTMLDivElement | null>(null);
 
     const handleOption = (option:string) => {
         setShowDropdown(false);
         setActiveOption(option);
         addFilter(field, option);
+    }
+
+    const handleClickOutside = (event: MouseEvent) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+            setShowDropdown(false);
+        }
     }
 
     useEffect(() => {
@@ -33,8 +40,16 @@ const Dropdown:React.FC<DropdownProps> = ({title, field, disabled, addFilter, op
         }
     }, [clearFilter]);
 
+    useEffect(() => {
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+          document.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
+
     return(
-    <div className="dropdown">
+    <div className="dropdown" ref={dropdownRef}>
         <h3 className="dropdown__name">{title}</h3>
         <button className="dropdown__button" disabled={disabled} onClick={() => setShowDropdown(!showDropdown)}>{activeOption}</button>
         <ul className={`dropdown__list ${showDropdown? 'dropdown__list--show' : 'dropdown__list--hide'}`}>
