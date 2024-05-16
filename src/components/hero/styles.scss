@@ -6,8 +6,8 @@
 
     @include tablet() {
         & {
-            height: rem(800);
-            max-height: 60vh;
+            height: rem(1000);
+            max-height: 75vh;
         }
     }
 }
@@ -25,6 +25,7 @@
     left: 0;
     background-size: cover;
     background-position: center;
+    background-position-y: 85%;
     color: white;
     gap: rem(10);
 
@@ -38,8 +39,8 @@
 
     @include tablet() {
         & {
-            height: rem(800);
-            max-height: 60vh;
+            height: rem(1000);
+            max-height: 75vh;
         }
 
         &__title {

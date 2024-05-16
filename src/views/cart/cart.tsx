@@ -51,7 +51,7 @@ function Cart() {
     const cartCopy = cart?.filter(p => p.name !== productName);
     if(cartCopy){
       if(cartCopy.length === 0){
-        setCart(null);
+        setCart([]);
       }
       else{
         setCart(cartCopy);
@@ -64,8 +64,13 @@ function Cart() {
   },[]);
 
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
     if(cart){
+      if(cart.length == 0){
+        localStorage.removeItem('cart');  
+      }
+      else{
+        localStorage.setItem('cart', JSON.stringify(cart));
+      }
       setCartNotifications(cart.length);
     }
     else{
@@ -76,7 +81,7 @@ function Cart() {
   return (
       <main className="main">
         <Section title='Cart:' classes='section--campfire-bg section--min-vh'>
-          { cart? 
+          { cart && cart.length > 0? 
             <SimpleList list={cart} handleQuantity={handleQuantity} removeProduct={removeProduct}/>
             :
             <div className='centered-message'>The cart is empty</div>

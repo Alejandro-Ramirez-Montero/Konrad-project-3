@@ -2,7 +2,7 @@
 .simple-list {
     display: flex;
     flex-direction: column;
-    background-color: rgba(47, 47, 47, 0.7);
+    background-color: rgba($bg-dark-blue, 0.7);
     padding: rem(20) rem(20);
     gap: rem(20);
 

@@ -1,3 +1,15 @@
+
+.featured-categories-ref {
+    position: absolute;
+    top: min(rem(400), calc(50vh + rem(2)));
+
+    @include tablet() {
+        & {
+            top: min(rem(800), calc(75vh + rem(2)));
+        }
+    }
+}
+
 .featured-categories-container {
     display: grid;
     grid-template-areas:
@@ -14,5 +26,20 @@
             height: rem(600);
             gap: rem(20);
         }
+    }
+}
+
+.featured-products {
+    display: flex;
+    overflow-x: scroll;
+
+    &::-webkit-scrollbar {
+        width: 20px;
+        height: 10px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background-color: brown;
+        border-radius: 5px;
     }
 }

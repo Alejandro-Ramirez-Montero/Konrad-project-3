@@ -206,7 +206,7 @@ function ProductsList() {
                 </div>
                 <button className="filters-button filters-button--m-screen" onClick={handleClearFilters/*hacer limpiado de filtros*/}>Clear Selection</button>
               </div>
-              <List list={activeList} showProduct={showProduct}></List>
+              <List list={activeList} showProduct={showProduct} classes='product-list--grid'></List>
               <Pagination currentPage={page.currentPage} lastPage={page.lastPage} setCurrentPage={setCurrentPage}/>
             </>
           }
