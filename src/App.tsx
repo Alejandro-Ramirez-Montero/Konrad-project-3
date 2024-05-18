@@ -7,6 +7,7 @@ import Home from './views/home/home';
 import ProductDetails from './views/product-details/product-details';
 import ProductsList from './views/products-list/products-list';
 import Cart from './views/cart/cart';
+import Checkout from './views/checkout/checkout';
 import Login from './views/login/login';
 
 import Header from './components/header/header';
@@ -60,11 +61,11 @@ const ProtectedRoute: React.FC<{user:LoggedUserInterface | undefined, children:R
 function App() {
   const [loggedUser, setLoggedUser] = useRecoilState<LoggedUserInterface | undefined>(loggedUserState);
 
-  useEffect(() => {
-    if(localStorage.getItem('user')){
-      setLoggedUser(JSON.parse(localStorage.getItem('user')!));
-    }
-  },[]);
+  // useEffect(() => {
+  //   if(localStorage.getItem('user')){
+  //     setLoggedUser(JSON.parse(localStorage.getItem('user')!));
+  //   }
+  // },[]);
 
   return (
       <div className='body'>
@@ -73,6 +74,7 @@ function App() {
           <Route path="/product-details/:productPath" element={<MainLayout><ProductDetails/></MainLayout>}/>
           <Route path="/products-list" element={<MainLayout><ProductsList/></MainLayout>}/>
           <Route path="/cart" element={<ProtectedRoute user={loggedUser}><MainLayout><Cart/></MainLayout></ProtectedRoute>}/>
+          <Route path="/checkout" element={<ProtectedRoute user={loggedUser}><MainLayout><Checkout/></MainLayout></ProtectedRoute>}/>
           <Route path="/login" element={<SimpleLayout><Login/></SimpleLayout>}/>
         </Routes>
       </div>

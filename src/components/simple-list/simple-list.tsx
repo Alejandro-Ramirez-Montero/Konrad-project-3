@@ -26,7 +26,7 @@ const SimpleList:React.FC<SimpleListProps> = ({list, handleQuantity, removeProdu
                     <div className='simple-list__row-container'>
                         <h3 className='simple-list__name'>{product.name}</h3>
                         <div className='simple-list__grid'>
-                            <span className='simple-list__price'>{'Price: $' + product.totalPrice}</span>
+                            <span className='simple-list__price'>{'Quantity Price: $' + product.totalPrice}</span>
                             <span className='simple-list__price'>{'Unit Price: $' + product.price}</span>
                             <QuantityAdjuster handleQuantity={handleQuantity} productName={product.name} startingQuantity={product.quantity}/>
                             <button className='simple-list__button' onClick={() => removeProduct(product.name)}>Remove</button>

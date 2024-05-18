@@ -1,11 +1,10 @@
-import './cart.scss'
+import './checkout.scss'
 import { useEffect, useState } from 'react';
 import { cartNotificationState } from '../../states/cart-notification-state';
 import { useSetRecoilState } from 'recoil';
 
 import Section from '../../components/section/section'
 import SimpleList from '../../components/simple-list/simple-list';
-import { useNavigate } from 'react-router-dom';
 
 interface productInterface {
   name: string,
@@ -24,10 +23,10 @@ interface cartProductInterface {
   image: string,
 }
 
-function Cart() {
+function Checkout() {
   const [cart, setCart] = useState<Array<cartProductInterface> | null>(localStorage.getItem('cart')? JSON.parse(localStorage.getItem('cart')!) : null);
   const setCartNotifications = useSetRecoilState<number>(cartNotificationState);
-  const navigate = useNavigate();
+  const [step, setStep] = useState<number>(1);
 
   const getProducts = () => {
     if(localStorage.getItem('cart')){
@@ -62,8 +61,16 @@ function Cart() {
     }
   }
 
-  const navigateToCheckout = () => {
-    navigate('/checkout');
+  const previousStep = () => {
+    if(step > 1){
+      setStep(step - 1);
+    }
+  }
+
+  const nextStep = () => {
+    if(step < 3){
+      setStep(step + 1);
+    }
   }
 
   useEffect(() =>{
@@ -87,23 +94,15 @@ function Cart() {
 
   return (
       <main className="main">
-        <Section title='Cart:' classes='section--campfire-bg section--min-vh'>
-          { cart && cart.length > 0? 
-            <div className='cart'>
-              <SimpleList list={cart} handleQuantity={handleQuantity} removeProduct={removeProduct}/>
-              <div className='cart__checkout-container'>
-                <p style={{fontWeight: "700"}}>Price Subtotal: </p>
-                <p>$99999</p>
-                <p style={{fontWeight: "300", fontSize: "15px"}}>*taxes and shipping not included yet</p>
-                <button className='cart__cart-button' onClick={() => navigateToCheckout()}>Proceed to Checkout</button>
-              </div>
-            </div>
-            :
-            <div className='centered-message'>The cart is empty</div>
-          }
-        </Section>
+        <div className='checkout'>
+        <Section title='Shipping information' classes={`section--fallen-tree-bg ${step != 1? 'section--minimize section__title--minimize' : ''}`}><div>address</div></Section>
+        <Section title='Payment Information' classes={`section--woods-bg ${step != 2? 'section--minimize section__title--minimize' : ''}`}><div>Credit cardddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</div></Section>
+        <Section title='Review' classes={`section--campfire-bg ${step != 3? 'section--minimize section__title--minimize' : ''}`}><div>approval</div></Section>
+        </div>
+        <button onClick={() => previousStep()}>Previous step</button>
+        <button onClick={() => nextStep()}>Next step</button>
       </main>
   )
 }
 
-export default Cart
+export default Checkout

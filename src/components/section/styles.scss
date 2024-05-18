@@ -3,15 +3,25 @@
     flex-direction: column;
     position: relative;
     width: 100%;
+    transition: width 3.0s ease;
     flex-grow: 1;
     z-index: 2;
     padding: rem(40) rem(20);
     text-align: left;
     gap: rem(10);
+    overflow: hidden;
 
     &__title {
         color: white;
         font-size: rem(25);
+        transition: transform 1s ease;
+        white-space: nowrap;
+    }
+
+    & div {
+        transition: display 10s ease 1s;
+        color: white;
+        transition: opacity 0.5s ease; 
     }
 
     &--brown {
@@ -20,6 +30,10 @@
 
     &--dark-blue {
         background-color: $bg-dark-blue;
+    }
+
+    &--beige {
+        background-color: $light-beige;
     }
 
     &--fallen-tree-bg {
@@ -53,6 +67,27 @@
 
         &--h-hundred {
             height: 100%;
+        }
+
+        &--minimize {
+            width: 150px;
+            padding: 0;
+            
+            & h2 {
+                transform: translate(50%, 30px) rotate(90deg);
+                //transition: transform 0.5s ease;
+                //writing-mode: vertical-lr;
+                //transition: writing-mode 0.5s ease;
+                transform-origin: left center;
+            }
+
+            & div {
+                opacity: 0;
+                height: 0;
+                margin: 0;
+                gap: 0;
+                transition: opacity 3s ease 5s;
+            }
         }
     }
 

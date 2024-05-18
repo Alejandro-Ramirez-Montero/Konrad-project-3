@@ -1,6 +1,7 @@
 
 .simple-list {
     display: flex;
+    flex: 1;
     flex-direction: column;
     background-color: rgba($bg-dark-blue, 0.7);
     padding: rem(20) rem(20);
