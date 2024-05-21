@@ -6,7 +6,7 @@ interface LoggedUserInterface {
     email: string;
     name: string;
     password: string;
-  }
+}
 
 export const loggedUserState = atom<LoggedUserInterface | undefined>({
     key: 'userState',

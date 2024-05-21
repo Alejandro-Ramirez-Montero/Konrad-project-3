@@ -30,7 +30,7 @@ function Login() {
 
   useEffect(() => {
     if(loggedUser){
-      localStorage.setItem('user', JSON.stringify(loggedUser));
+      //localStorage.setItem('user', JSON.stringify(loggedUser));
       navigate('/', { replace: true });
     }
   },[loggedUser]);

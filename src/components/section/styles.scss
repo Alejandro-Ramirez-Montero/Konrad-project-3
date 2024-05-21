@@ -14,14 +14,16 @@
     &__title {
         color: white;
         font-size: rem(25);
-        transition: transform 1s ease;
+        transition: transform 2s ease;
         white-space: nowrap;
+        transform-origin: left center;
     }
 
-    & div {
-        transition: display 10s ease 1s;
-        color: white;
-        transition: opacity 0.5s ease; 
+    & form {
+        //transition: display 10s ease 1s;
+        //color: white;
+        transition: opacity 2s ease 1.5s;
+        //min-height: 300px;
     }
 
     &--brown {
@@ -34,7 +36,7 @@
 
     &--beige {
         background-color: $light-beige;
-    }
+    }   
 
     &--fallen-tree-bg {
         background-color: #1a2729;
@@ -57,6 +59,14 @@
         background-position-y: 100%;
     }
 
+    &--camping-bg {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/public/images/california-camping.webp');
+        background-size: 90%;
+        background-attachment: fixed;
+        background-position-x: 100%;
+        background-position-y: 170%;
+    }
+
     
     
     @include tablet() {
@@ -70,25 +80,36 @@
         }
 
         &--minimize {
-            width: 150px;
-            padding: 0;
+            width: 10%;
             
             & h2 {
-                transform: translate(50%, 30px) rotate(90deg);
+                transform: translate(50%, -10px) rotate(90deg);
                 //transition: transform 0.5s ease;
                 //writing-mode: vertical-lr;
                 //transition: writing-mode 0.5s ease;
                 transform-origin: left center;
+                //animation: rotateAnimation 2.7s ease-in forwards;
             }
 
-            & div {
+            & form {
+                //padding: 40px 20px;
                 opacity: 0;
-                height: 0;
-                margin: 0;
-                gap: 0;
-                transition: opacity 3s ease 5s;
+                transition: opacity 0.3s ease;
             }
         }
     }
 
+}
+@keyframes rotateAnimation {
+    0% {
+        transform: translate(0%, 0) rotate(0deg);
+    }
+
+    50% {
+        transform: translate(25%, 0) rotate(90deg);
+    }
+
+    100% {
+        transform: translate(50%, 0px) rotate(90deg);
+    }
 }

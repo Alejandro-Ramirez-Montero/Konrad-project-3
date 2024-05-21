@@ -1,0 +1,115 @@
+
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    //margin-left: calc(40vw - rem(225));
+    //margin-right: calc(40vw - rem(225));
+    height: rem(300);
+    width: rem(450);
+    padding: rem(20);
+    border-radius: 10px;
+    gap: rem(20);
+    color: $logo-light-green;
+    background-color: rgba($alternate-brown, 0.9);
+
+    &__row {
+        display: flex;
+        gap: rem(10);
+        justify-content: center;
+    }
+
+    &__col {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        text-align: justify;
+        font-size: rem(16);
+        gap: rem(2);
+    }
+
+    &__label {
+        display: flex;
+    }
+
+    &__input {
+        padding: rem(5);
+        border-radius: rem(2);
+        border: none;
+        cursor:text;
+
+        &:focus {
+            outline: 3px solid $light-green;
+        }
+    }
+
+    &__message {
+        margin-top: 65px;
+        display: flex;
+        height: 10px;
+        font-size: rem(14);
+    }
+
+    &__asterisk {
+        font-size: rem(30);
+        margin: 0 4px;
+        margin-top: -2px;
+        color: crimson;
+        height: 0px;
+    }
+
+    &__alert-message {
+        color: crimson;
+        margin-left: auto;
+        font-size: rem(13);
+        align-self: flex-end;
+
+        &--hide {
+            color: transparent;
+        }
+    }
+
+    &__button {
+        align-self: center;
+        background-color: $light-green;
+        color: white;
+        width: rem(150);
+        font-size: rem(20);
+        border-radius: 5px;
+        border: 2px solid transparent;
+        //border: none;
+        outline: none;
+        padding: rem(2);
+        cursor: pointer;
+
+        &:hover:not(:disabled){
+            border: 2px solid rgb(255, 255, 255);
+        }
+
+        &:focus:not(:disabled){
+            border: 2px solid rgb(255, 255, 255);
+        }
+
+        &:active {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), $light-green;
+        }
+        
+        &:disabled {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), $light-green;
+            color: rgba(white, 0.3);
+        }
+
+    }
+
+    @include tablet() {
+        &{
+            //width: rem(400);
+        }
+    }
+    @include computer() {
+        &{
+            //width: 60%;
+        }
+    }
+
+}

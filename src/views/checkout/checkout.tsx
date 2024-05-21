@@ -5,6 +5,8 @@ import { useSetRecoilState } from 'recoil';
 
 import Section from '../../components/section/section'
 import SimpleList from '../../components/simple-list/simple-list';
+import ShippingForm from '../../components/shipping-form/shipping-form';
+import PaymentForm from '../../components/payment-form/payment-form';
 
 interface productInterface {
   name: string,
@@ -95,9 +97,13 @@ function Checkout() {
   return (
       <main className="main">
         <div className='checkout'>
-        <Section title='Shipping information' classes={`section--fallen-tree-bg ${step != 1? 'section--minimize section__title--minimize' : ''}`}><div>address</div></Section>
-        <Section title='Payment Information' classes={`section--woods-bg ${step != 2? 'section--minimize section__title--minimize' : ''}`}><div>Credit cardddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</div></Section>
-        <Section title='Review' classes={`section--campfire-bg ${step != 3? 'section--minimize section__title--minimize' : ''}`}><div>approval</div></Section>
+        <Section title='Shipping information' classes={`section--woods-bg ${step != 1? 'section--minimize section__title--minimize' : ''}`}>
+          <ShippingForm nextStep={() => nextStep()} active={step == 1}/>
+        </Section>
+        <Section title='Payment Information' classes={`section--dark-blue ${step != 2? 'section--minimize section__title--minimize' : ''}`}>
+          <PaymentForm previousStep={() => previousStep()} nextStep={() => nextStep()} active={step == 2}/>
+        </Section>
+        <Section title='Review and Pay' classes={`section--camping-bg ${step != 3? 'section--minimize section__title--minimize' : ''}`}><div>approval</div></Section>
         </div>
         <button onClick={() => previousStep()}>Previous step</button>
         <button onClick={() => nextStep()}>Next step</button>
