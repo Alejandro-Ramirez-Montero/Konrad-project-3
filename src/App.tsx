@@ -9,11 +9,13 @@ import ProductsList from './views/products-list/products-list';
 import Cart from './views/cart/cart';
 import Checkout from './views/checkout/checkout';
 import Login from './views/login/login';
+import SignUp from './views/sign-up/sign-up';
 
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
 import { loggedUserState } from './states/logged-user';
 import { useRecoilState } from 'recoil';
+import Wishlist from './views/wishlist/wishlist';
 
 interface LoggedUserInterface {
   email: string;
@@ -73,9 +75,11 @@ function App() {
           <Route path="/" element={<MainLayout><Home/></MainLayout>}/>
           <Route path="/product-details/:productPath" element={<MainLayout><ProductDetails/></MainLayout>}/>
           <Route path="/products-list" element={<MainLayout><ProductsList/></MainLayout>}/>
+          <Route path="/wishlist" element={<ProtectedRoute user={loggedUser}><MainLayout><Wishlist/></MainLayout></ProtectedRoute>}/>
           <Route path="/cart" element={<ProtectedRoute user={loggedUser}><MainLayout><Cart/></MainLayout></ProtectedRoute>}/>
           <Route path="/checkout" element={<ProtectedRoute user={loggedUser}><MainLayout><Checkout/></MainLayout></ProtectedRoute>}/>
           <Route path="/login" element={<SimpleLayout><Login/></SimpleLayout>}/>
+          <Route path="/sign-up" element={<SimpleLayout><SignUp/></SimpleLayout>}/>
         </Routes>
       </div>
   )

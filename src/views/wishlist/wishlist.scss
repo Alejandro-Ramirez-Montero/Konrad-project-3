@@ -1,0 +1,62 @@
+
+.centered-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: white;
+    font-size: rem(30);
+}
+
+.wishlist {
+    display: flex;
+    flex-direction: column; 
+    height: 100%;
+    gap: 20px;
+
+    &__checkout-container {
+        display: flex;
+        flex-direction: column;
+        background-color: rgba($light-beige, 0.3 );
+        color: white;
+        width: 100%;
+        margin-top: auto;
+        font-size: 20px;
+        padding: 20px;
+        gap: 10px;
+        overflow-x: hidden;
+    }
+
+    &__cart-button {
+        background-color: $light-green;
+        color: white;
+        height: rem(40);
+        width: rem(250);
+        font-size: rem(20);
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    
+        &:hover {
+            border: 2px solid rgb(255, 255, 255);
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), $light-green;
+        }
+    
+    }
+
+    @include computer() {
+
+        & {
+            flex-direction: row;
+        }
+
+        &__checkout-container {
+            height: 100%;
+            width: 30%;
+        }
+
+        &__cart-button {
+            width: 100%;
+        }
+    }
+}

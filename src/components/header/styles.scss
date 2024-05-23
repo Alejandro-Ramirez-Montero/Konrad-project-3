@@ -22,6 +22,14 @@
         margin-left: rem(15);
     }
 
+    &__welcome-message {
+        position: absolute;
+        display: none;
+        width: 100%;
+        color: white;
+        font-size: 20px;
+    }
+
     &__button {
         position: relative;
         height: 100%;
@@ -64,43 +72,75 @@
         width: rem(200);
         padding: 0;
         list-style: none;
-        padding-top: rem(20);
+        padding-top: 0;
         height: calc(100vh - rem(80));
         background-color: $light-white;
 
         &--visible{
             right: rem(-1);
             transition: right 0.5s linear;
+
+            & li {
+                margin-left: rem(-1);
+            }
         }
 
         &--invisible {
             right: rem(-200);
             transition: right 0.5s linear;
         }
+    }
 
-        @include tablet() {
-            & {
-                width: rem(400);
-            }
-            &--invisible {
-                right: rem(-400);
-            }
+    @include tablet() {
+        &__logo {
+            height: 200%;
+        }
+
+        &__menu {
+            width: rem(400);
+            padding-top: rem(20);
+        }
+        &__menu--invisible {
+            right: rem(-400);
+        }
+
+        &__welcome-message {
+            display: block;
         }
     }
 }
 
-.item-button {
-    height: 100%;
-    width: 100%;
-    text-align: left;
-    font-size: rem(20);
-    font-weight: 500;
-    padding: rem(10) rem(20);
-    outline: none;
-    border: none;
-    cursor: pointer;
+.item {
+    &__welcome-message {
+        font-size: 20px;
+        background-color: $bg-dark-blue;
+        color: white;
+        padding: rem(10) rem(5);
+    }
 
-    &:hover, &:focus{
-        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    &__button {
+        height: 100%;
+        width: 100%;
+        text-align: left;
+        font-size: rem(20);
+        font-weight: 500;
+        padding: rem(10) rem(20);
+        outline: none;
+        border: none;
+        cursor: pointer;
+    
+        &--hide {
+            display: none;
+        }
+    
+        &:hover, &:focus{
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+        }
+    }
+
+    @include tablet() {
+        &__welcome-message {
+            display: none;
+        }
     }
 }

@@ -20,6 +20,32 @@
         gap: rem(20);
     }
 
+    &__image-wishlist-container {
+        position: relative;
+        align-self: center;
+    }
+
+    &__wishlist-button {
+        position: absolute;
+        top: 15px;
+        right:15px;
+        height: 25px;
+        width: 25px;
+        cursor: pointer;
+
+        & path {
+            cursor: pointer;
+        }
+
+        &--red {
+            color: red;
+        }
+
+        &--gray {
+            color: gray;
+        }
+    }
+
     &__image {
         align-self: center;
         width: 60vw;

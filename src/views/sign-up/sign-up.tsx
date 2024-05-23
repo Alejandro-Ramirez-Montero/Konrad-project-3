@@ -1,7 +1,7 @@
-import './login.scss'
+import './sign-up.scss'
 import { useEffect, useState } from 'react';
 
-import LoginForm from '../../components/login-form/login-form';
+import SignUpForm from '../../components/sign-up-form/sign-up-form';
 import { useRecoilState } from 'recoil';
 import { loggedUserState } from '../../states/logged-user';
 import { Link, useNavigate } from 'react-router-dom';
@@ -12,19 +12,28 @@ interface LoggedUserInterface {
   password: string;
 }
 
-function Login() {
+function SignUp() {
   const [showAlertMessage, setShowAlertMessage] = useState<boolean>(false);
   const [loggedUser, setLoggedUser] = useRecoilState<LoggedUserInterface | undefined>(loggedUserState);
   const navigate = useNavigate();
 
-  const handleLogin = (email: string, password: string) => {
+
+  //Conectar sign up con backend
+  const handleSignUp = (email: string, fullName:string, password: string, confirmPassword: string) => {
     fetch('../../../users.json')
     .then(response => response.json())
     .then((data: Array<LoggedUserInterface>) => {
       const user = data.find(user => user.email === email && user.password == password);
       return user;
     })
-    .then(user => user? setLoggedUser(user) : setShowAlertMessage(true))
+    .then(user => {
+      if(!user){
+        
+      }
+      else{
+        setShowAlertMessage(true);
+      }
+    })
     .catch();
   }
 
@@ -37,13 +46,13 @@ function Login() {
 
   return (
       <main className="main main--padding-top-0">
-        <div className="login">
-          <img className="login__logo" src="/logo/logo.png" alt="CampGear logo"></img>
-          <LoginForm showAlertMessage={showAlertMessage} setShowAlertMessage={setShowAlertMessage} handleLogin={handleLogin}/>
-          <div style={{color: 'white'}}>Already have an account? <Link to='/sign-up' className='login__link-to'>Sign Up</Link></div>
+        <div className="sign-up">
+          <img className="sign-up__logo" src="/logo/logo.png" alt="CampGear logo"></img>
+          <SignUpForm showAlertMessage={showAlertMessage} setShowAlertMessage={setShowAlertMessage} handleSignUp={handleSignUp}/>
+          <div style={{color: 'white'}}>Already have an account? <Link to='/login' className='sign-up__link-to'>Login</Link></div>
         </div>
       </main>
   )
 }
 
-export default Login
+export default SignUp

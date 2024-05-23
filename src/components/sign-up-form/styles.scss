@@ -1,8 +1,8 @@
 
-.login-form {
+.sign-up-form {
     display: flex;
     flex-direction: column;
-    height: rem(350);
+    height: rem(500);
     width: rem(300);
     padding: rem(40);
     background-color: $logo-blue;
@@ -94,7 +94,7 @@
 
     @include tablet() {
         & {
-            height: rem(350);
+            height: rem(420);
             width: rem(500);
         }
 

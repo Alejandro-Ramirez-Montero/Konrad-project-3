@@ -1,6 +1,7 @@
 import './product-details.scss'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { FaHeart } from "react-icons/fa";
 
 import Section from '../../components/section/section'
 import QuantityAdjuster from '../../components/quantity-adjuster/quantity-adjuster';
@@ -29,6 +30,7 @@ function ProductDetails() {
   const [product, setProduct] = useState<productInterface>();
   const [resetQuantity, setResetQuantity] = useState<boolean>(false);
   const setCartNotifications = useSetRecoilState<number>(cartNotificationState);
+  const [productInWishlist, setProductInWishlist] = useState<boolean>(false);
   let quantity = 1;
   const navigate = useNavigate();
 
@@ -36,9 +38,66 @@ function ProductDetails() {
     fetch('../../../public/products.json')
     .then(response => response.json())
     .then((data: Array<productInterface>) => {
-      setProduct(data.find(dataProduct => productPath?.toLowerCase() === dataProduct.path.toLowerCase()));
+      const pageProduct = data.find(dataProduct => productPath?.toLowerCase() === dataProduct.path.toLowerCase());
+      setProduct(pageProduct);
+      setProductInWishlist(productIsInWishlist(pageProduct));
     })
     .catch();
+  }
+
+  const productIsInWishlist = (theProduct: productInterface | undefined) => {
+    let wishlist:Array<cartProductInterface> = localStorage.getItem('wishlist')? JSON.parse(localStorage.getItem('wishlist')!) : null;
+    
+    if(wishlist && theProduct && wishlist.find(p => p.name === theProduct.name)){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  const addToWishlist = (wishlist:Array<cartProductInterface>) => {
+    if(product){
+      let wishlistProduct = {
+        name: product.name,
+        quantity: 1,
+        image: product.image,
+        price: Number(product.price),
+        totalPrice: Number(product.price),
+      }
+      wishlist.push(wishlistProduct);
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+      setProductInWishlist(true);
+    }
+  }
+
+  const removeFromWishlist = (wishlist:Array<cartProductInterface>) => {
+    if(product){
+      let wishlistCopy = wishlist.filter(p => p.name !== product.name);
+      localStorage.setItem('wishlist', JSON.stringify(wishlistCopy));
+      setProductInWishlist(false);
+    }
+  }
+
+
+  const handleWishlist = () => {
+    let wishlist:Array<cartProductInterface> = localStorage.getItem('wishlist')? JSON.parse(localStorage.getItem('wishlist')!) : null;
+    
+    if(wishlist == null){
+      localStorage.setItem('wishlist', JSON.stringify([]));
+      wishlist = [];
+    }
+
+    if(product){
+      if(!productInWishlist){
+        console.log('agregar');
+        addToWishlist(wishlist);
+      }
+      else{
+        console.log('eliminar');
+        removeFromWishlist(wishlist);
+      }
+    }
   }
 
   const addToCart = () => {
@@ -86,7 +145,10 @@ function ProductDetails() {
           { product &&
             <div className="product">
               <div className="product__container">
-                  <img className="product__image" src={product.image} alt={product.name+" image"}/>
+                <div className='product__image-wishlist-container'>
+                  <img className="product__image" src={product.image} alt={product.name+" image"}></img>
+                  <FaHeart className={`product__wishlist-button ${productInWishlist? 'product__wishlist-button--red' : 'product__wishlist-button--gray'}`} onClick={() => handleWishlist()}/>
+                </div>
               </div>
               <div className="product__container product__details-container">
                   <h2 className="product__name">{product.name}</h2>
