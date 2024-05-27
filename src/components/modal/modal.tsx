@@ -1,21 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { PlaylistSubject } from "../../services/playlist-service";
-import axios from "axios";
+import { ReactNode } from 'react';
 import './styles.scss';
 
-interface Example {
-    id: number,
-    name: string,
-    types: Array<string>,
-    image: string,
-}
-
-const Modal:React.FC<{modalOpen:boolean}> = ({modalOpen}) => {
+const Modal:React.FC<{openModal:boolean, children?:ReactNode}> = ({openModal, children}) => {
     return(
         <>
-        {modalOpen?
+        {openModal?
             <div className="modal">
-                hola
+                { children }
             </div>
             :
             <></>

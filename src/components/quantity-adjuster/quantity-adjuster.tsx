@@ -2,26 +2,26 @@ import { ChangeEvent, useEffect, useState} from 'react';
 import './styles.scss';
 
 interface QuantityAdjusterProps {
-    productName?: string;
+    productId: number,
     startingQuantity?: number;
-    handleQuantity: (newQuantity: number, productName?:string) => void;
+    handleQuantity: (productId: number, newQuantity: number) => void;
     resetQuantity?: boolean;
 }
 
-const QuantityAdjuster:React.FC<QuantityAdjusterProps> = ({productName, startingQuantity, handleQuantity, resetQuantity}) => {
+const QuantityAdjuster:React.FC<QuantityAdjusterProps> = ({productId, startingQuantity, handleQuantity, resetQuantity}) => {
     const [text, setText] = useState<string>(startingQuantity? (startingQuantity <= 99? startingQuantity.toString() : '99') : '1');
     const [quantity, setQuantity] = useState<number>(startingQuantity? (startingQuantity <= 99? startingQuantity : 99) : 1);
+    const [firstLoad, setFirstLoad] = useState<boolean>(true);
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const number = parseInt(e.target.value, 10);
-        if(!isNaN(number) || e.target.value === ''){
+        if((/^\d+$/.test(e.target.value) || e.target.value === '') && e.target.value.length <= 2){
             setText(e.target.value);
         }
     }
 
     const checkNumber = () => {
         const number = parseInt(text, 10);
-        if(!isNaN(number) && number !== 0){
+        if(!isNaN(number) && number > 0 && number < 100){
             setQuantity(number);
         }
         else{
@@ -43,11 +43,11 @@ const QuantityAdjuster:React.FC<QuantityAdjusterProps> = ({productName, starting
     },[resetQuantity]);
 
     useEffect(() => {
-        if(productName){
-            handleQuantity(quantity, productName);
+        if(!firstLoad){
+            handleQuantity(productId, quantity);
         }
         else{
-            handleQuantity(quantity);
+            setFirstLoad(false);
         }
     },[quantity]);
 

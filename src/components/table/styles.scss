@@ -1,0 +1,80 @@
+
+.table {
+    background-color: rgba($bg-dark-blue, 0.8);
+    margin-bottom: auto;
+    //background-color: rgba($light-green, 0.8);
+    border-radius: 10px;
+    overflow: hidden;
+    border-collapse: collapse;
+
+
+    &__header {
+        color: $logo-light-green;
+    }
+
+    &__header-title {
+        padding: 20px;
+    }
+
+    &__body {
+        background-color: rgba($light-green, 0.6);
+        color: white;
+    }
+
+    &__row {
+        
+        &:hover {
+            background-color: rgba($bg-dark-blue, $alpha: 0.5);
+        }
+    }
+
+    &__column {
+        padding: 10px;
+    }
+
+    &__button-column {
+        padding: 0 10px;
+    }
+
+    &__button {
+        align-self: center;
+        margin-top: auto;
+        background-color: $logo-blue;
+        color: white;
+        width: 100px;
+        font-size: rem(20);
+        border-radius: 5px;
+        border: 2px solid transparent;
+        outline: none;
+        padding: rem(2);
+        cursor: pointer;
+
+        &--brown {
+            background-color: brown;
+        }
+
+        &:hover:not(:disabled){
+            border: 2px solid rgb(255, 255, 255);
+        }
+
+        &:focus:not(:disabled){
+            border: 2px solid rgb(255, 255, 255);
+        }
+
+        &:active {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), $light-green;
+        }
+        
+        &:disabled {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), $light-green;
+            color: rgba(white, 0.3);
+        }
+
+    }
+
+    @include tablet() {
+        &{
+            
+        }
+    }
+}

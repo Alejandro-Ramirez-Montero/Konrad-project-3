@@ -58,6 +58,10 @@
         &--hide {
             display: none;
         }
+
+        &--success {
+            color: $light-green;
+        }
     }
 
     &__button {

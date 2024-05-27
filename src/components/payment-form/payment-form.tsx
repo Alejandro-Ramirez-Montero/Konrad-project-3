@@ -172,7 +172,7 @@ const PaymentForm:React.FC<PaymentFormProps> = ({previousStep, nextStep, active}
 
 
     return(
-    <form className="payment-form" onSubmit={handleSubmit}>
+    <form className="payment-form section__subsection" onSubmit={handleSubmit}>
         <div className='payment-form__row'>
             <div className="payment-form__col">
                 <label htmlFor="cardNumber" className='payment-form__label'><span className='payment-form__asterisk'>*</span>Card Number: {!validCardNumber && <span className='payment-form__alert-message'>invalid card</span>}</label>

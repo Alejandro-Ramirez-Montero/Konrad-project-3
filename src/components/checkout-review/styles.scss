@@ -1,0 +1,154 @@
+
+.checkout-review {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    overflow: hidden;
+    //position: absolute;
+    //margin-left: calc(40vw - rem(225));
+    //margin-right: calc(40vw - rem(225));
+    //margin-right: calc(50vw - rem(225));
+    //right: calc(50vw - rem(225));
+
+
+    //top: calc(50% - 150px);
+    //margin-right: calc(50vw - rem(245));
+    
+    height: rem(300);
+    width: rem(450);
+    border-radius: 10px;
+    gap: rem(10);
+    color: $logo-light-green;
+    background-color: rgba(gray, 0.7);
+
+    &__row {
+        display: flex;
+        gap: rem(10);
+        justify-content: center;
+
+        &--flex-grow {
+            flex: 1;
+        }
+
+        &--margin-bottom {
+            margin-bottom: 20px;
+        }
+
+        &--margin-horizontal {
+            margin-right: 20px;
+            margin-left: 20px;
+        }
+    }
+
+    &__col {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: justify;
+        font-size: rem(16);
+        gap: rem(2);
+
+        &--flex-grow {
+            flex: 1;
+        }
+
+        &--padding {
+            padding: 10px;
+        }
+
+        &--dark-bg {
+            background-color: rgba($bg-dark-blue, 0.8);
+        }
+    }
+
+    &__subtitle {
+        font-size: rem(20);
+        padding: 5px 10px;
+        font-weight: 600;
+        background-color: rgba($bg-dark-blue, 0.8);
+    }
+
+    &__subsection {
+        display: flex;
+        flex-direction: column;
+        padding: 0 rem(20);
+        gap: rem(5);
+        color: black;
+
+        &--medium-font {
+            font-size: 20px;
+            background-color: white;
+        }
+    }
+
+    &__message {
+        margin-top: 65px;
+        display: flex;
+        height: 10px;
+        font-size: rem(14);
+    }
+
+    &__div-flex {
+        display: flex;
+    }
+
+    &__text-right{
+        margin-left: auto;
+    }
+
+    &__button {
+        align-self: center;
+        background-color: $light-green;
+        color: white;
+        width: rem(150);
+        font-size: rem(20);
+        border-radius: 5px;
+        border: 2px solid transparent;
+        //border: none;
+        outline: none;
+        padding: rem(2);
+        cursor: pointer;
+
+        &:hover:not(:disabled){
+            border: 2px solid rgb(255, 255, 255);
+        }
+
+        &:focus:not(:disabled){
+            border: 2px solid rgb(255, 255, 255);
+        }
+
+        &:active {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), $light-green;
+        }
+        
+        &:disabled {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), $light-green;
+            color: rgba(white, 0.3);
+        }
+
+        &--black {
+            background-color: black;
+            &:active {
+                background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), white;
+            }
+            
+            &:disabled {
+                background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), white;
+                color: rgba(white, 0.3);
+            }
+        }
+
+    }
+
+    @include tablet() {
+        &{
+            //width: rem(400);
+        }
+    }
+    @include computer() {
+        &{
+            //width: 60%;
+        }
+    }
+
+}

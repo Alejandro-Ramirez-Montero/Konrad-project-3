@@ -71,7 +71,7 @@ const ShippingForm:React.FC<ShippingFormProps> = ({nextStep, active}) => {
 
 
     return(
-    <form className="shipping-form" onSubmit={handleSubmit}>
+    <form className="shipping-form section__subsection" onSubmit={handleSubmit}>
         <div className='shipping-form__row'>
             <div className="shipping-form__col">
                 <label htmlFor="province" className='shipping-form__label'><span className='shipping-form__asterisk'>*</span>Province:</label>

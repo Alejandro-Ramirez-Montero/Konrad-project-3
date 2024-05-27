@@ -6,27 +6,23 @@ import { FaHeart } from "react-icons/fa";
 import Section from '../../components/section/section'
 import QuantityAdjuster from '../../components/quantity-adjuster/quantity-adjuster';
 import { cartNotificationState } from '../../states/cart-notification-state';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { requestAddProductQuantitytoCart, requestAddProductToCart, requestAddProductToWishlist, requestProduct, requestProductInCart, requestProductInWishlist, requestRemoveProductFromWishlist} from '../../utils/functions';
+import { userTokenState } from '../../states/user-token';
 
 interface productInterface {
+  id: number,
   name: string,
   path: string,
   description: string,
   price: string,
   image: string,
-  categories: Array<string>,
-}
-
-interface cartProductInterface {
-  name: string,
-  quantity: number,
-  price: number,
-  totalPrice: number,
-  image: string,
+  category: string,
 }
 
 function ProductDetails() {
   const { productPath } = useParams<{productPath: string}>();
+  const [userToken, setUserToken] = useRecoilState<string | undefined>(userTokenState);
   const [product, setProduct] = useState<productInterface>();
   const [resetQuantity, setResetQuantity] = useState<boolean>(false);
   const setCartNotifications = useSetRecoilState<number>(cartNotificationState);
@@ -35,97 +31,90 @@ function ProductDetails() {
   const navigate = useNavigate();
 
   const getProduct = () => {
-    fetch('../../../public/products.json')
-    .then(response => response.json())
-    .then((data: Array<productInterface>) => {
-      const pageProduct = data.find(dataProduct => productPath?.toLowerCase() === dataProduct.path.toLowerCase());
-      setProduct(pageProduct);
-      setProductInWishlist(productIsInWishlist(pageProduct));
+    requestProduct(userToken!, productPath!)
+    .then((data) => {
+      if(data){
+        const pageProduct: productInterface = {
+          id: data.id,
+          name: data.name,
+          path: data.path,
+          description: data.description,
+          price: data.price,
+          image: data.image,
+          category: data.category
+        }
+        setProduct(pageProduct);
+        productIsInWishlist(pageProduct);
+      }
     })
     .catch();
   }
 
-  const productIsInWishlist = (theProduct: productInterface | undefined) => {
-    let wishlist:Array<cartProductInterface> = localStorage.getItem('wishlist')? JSON.parse(localStorage.getItem('wishlist')!) : null;
-    
-    if(wishlist && theProduct && wishlist.find(p => p.name === theProduct.name)){
-      return true;
+  const productIsInWishlist = (pageProduct: productInterface | undefined) => {
+    if(userToken && pageProduct){
+      requestProductInWishlist(userToken, pageProduct.id)
+      .then(result => {
+          setProductInWishlist(result);
+      })
+      .catch();
     }
     else{
-      return false;
-    }
-  }
-
-  const addToWishlist = (wishlist:Array<cartProductInterface>) => {
-    if(product){
-      let wishlistProduct = {
-        name: product.name,
-        quantity: 1,
-        image: product.image,
-        price: Number(product.price),
-        totalPrice: Number(product.price),
-      }
-      wishlist.push(wishlistProduct);
-      localStorage.setItem('wishlist', JSON.stringify(wishlist));
-      setProductInWishlist(true);
-    }
-  }
-
-  const removeFromWishlist = (wishlist:Array<cartProductInterface>) => {
-    if(product){
-      let wishlistCopy = wishlist.filter(p => p.name !== product.name);
-      localStorage.setItem('wishlist', JSON.stringify(wishlistCopy));
       setProductInWishlist(false);
     }
   }
 
+  const addToWishlist = () => {
+    if(userToken && product){
+      requestAddProductToWishlist(userToken, product.id)
+      .then(response => {
+        setProductInWishlist(response);
+      })
+      .catch();
+    }
+  }
+
+  const removeFromWishlist = () => {
+    if(userToken && product){
+      requestRemoveProductFromWishlist(userToken, product.id)
+      .then(response => {
+        setProductInWishlist(!response);
+      })
+      .catch();
+    }
+  }
 
   const handleWishlist = () => {
-    let wishlist:Array<cartProductInterface> = localStorage.getItem('wishlist')? JSON.parse(localStorage.getItem('wishlist')!) : null;
-    
-    if(wishlist == null){
-      localStorage.setItem('wishlist', JSON.stringify([]));
-      wishlist = [];
-    }
-
-    if(product){
+    if(userToken && product){
       if(!productInWishlist){
-        console.log('agregar');
-        addToWishlist(wishlist);
+        addToWishlist();
       }
       else{
-        console.log('eliminar');
-        removeFromWishlist(wishlist);
+        removeFromWishlist();
       }
     }
   }
 
   const addToCart = () => {
-    if(product){
-      let cart:Array<cartProductInterface> = localStorage.getItem('cart')? JSON.parse(localStorage.getItem('cart')!) : null;
-      if(cart == null){
-        localStorage.setItem('cart', JSON.stringify([]));
-        cart = [];
-      }
-      let cartProduct = cart.find(p => p.name === product.name);
-      if(cartProduct){
-        cartProduct.quantity += quantity;
-        const totalPrice = cartProduct.quantity * cartProduct.price;
-        cartProduct.totalPrice = parseFloat(totalPrice.toFixed(2));
-      }
-      else {
-        const totalPrice = Number(product.price) * quantity;
-        cartProduct = {
-          name: product.name,
-          quantity: quantity,
-          image: product.image,
-          price: Number(product.price),
-          totalPrice: parseFloat(totalPrice.toFixed(2)),
+    if(product && userToken){
+      requestProductInCart(userToken, product.id)
+      .then(productInCart => {
+        if(productInCart){
+          requestAddProductQuantitytoCart(userToken, product.id, quantity)
+          .then(data => {
+            //el backend deberia devolver el objeto actualizado
+          })
+          .catch()
         }
-        cart.push(cartProduct);
-      }
-      localStorage.setItem('cart', JSON.stringify(cart));
-      setCartNotifications(cart.length);
+        else{
+          requestAddProductToCart(userToken, product.id, quantity)
+          .then(data => {
+            //el backend deberia devolver el objeto actualizado
+          })
+          .catch()
+        }
+      })
+      .catch();
+      //setCartNotifications(cart.length);
       setResetQuantity(!resetQuantity);
       window.alert(`Added ${quantity} ${product.name} to cart.`);
     }
@@ -155,7 +144,7 @@ function ProductDetails() {
                   <p className="product__price">{'$'+product.price}</p>
                   <p className="product__description">{product.description}</p>
                   <div className='product__buy-container'>
-                    <QuantityAdjuster handleQuantity={handleQuantity} resetQuantity={resetQuantity}/>
+                    <QuantityAdjuster productId={product.id} handleQuantity={handleQuantity} resetQuantity={resetQuantity}/>
                     <button className="product__buy-button" onClick={addToCart}>Add to Cart</button>
                   </div>
               </div>

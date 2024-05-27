@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
 import './App.scss'
 import { Route, Routes, useNavigate } from 'react-router-dom';
@@ -14,13 +14,16 @@ import SignUp from './views/sign-up/sign-up';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
 import { loggedUserState } from './states/logged-user';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import Wishlist from './views/wishlist/wishlist';
+import { userTokenState } from './states/user-token';
+import { requestUserData } from './utils/functions';
+import AdminPanel from './views/admin-panel/admin-panel';
 
 interface LoggedUserInterface {
   email: string;
-  name: string;
-  password: string;
+  fullName: string;
+  role: string;
 }
 
 const MainLayout: React.FC<{children:ReactNode}> = ({children}) => {
@@ -60,17 +63,54 @@ const ProtectedRoute: React.FC<{user:LoggedUserInterface | undefined, children:R
   
 };
 
+const AuthorizedRoute: React.FC<{user:LoggedUserInterface | undefined, children:ReactNode}> = ({user, children}) => {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    if(user?.role != 'ADMIN' && user?.role != 'SUPER_ADMIN'){
+      navigate('/', {replace: true});
+    }
+  },[]);
+
+    return <div >{children}</div>;
+  
+};
+
 function App() {
   const [loggedUser, setLoggedUser] = useRecoilState<LoggedUserInterface | undefined>(loggedUserState);
+  const [userToken, setUserToken] = useRecoilState<string | undefined>(userTokenState);
+  const [doneLoading, setDoneLoading] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   if(localStorage.getItem('user')){
-  //     setLoggedUser(JSON.parse(localStorage.getItem('user')!));
-  //   }
-  // },[]);
+  useEffect(() => {
+    if(userToken){
+      requestUserData(userToken)
+      .then(data =>  {
+        setLoggedUser({
+          email: data.email,
+          fullName: data.fullName,
+          role: data.role.name,
+        })
+      })
+      .catch(error => {
+        setUserToken(undefined);
+        setLoggedUser(undefined);
+        setDoneLoading(true);
+      });
+    }
+    else{
+      setDoneLoading(true);
+    }
+  },[userToken]);
+
+  useEffect(() =>{
+    if(loggedUser){
+      setDoneLoading(true);
+    }
+  },[loggedUser]);
 
   return (
       <div className='body'>
+        { doneLoading &&
         <Routes>
           <Route path="/" element={<MainLayout><Home/></MainLayout>}/>
           <Route path="/product-details/:productPath" element={<MainLayout><ProductDetails/></MainLayout>}/>
@@ -78,9 +118,11 @@ function App() {
           <Route path="/wishlist" element={<ProtectedRoute user={loggedUser}><MainLayout><Wishlist/></MainLayout></ProtectedRoute>}/>
           <Route path="/cart" element={<ProtectedRoute user={loggedUser}><MainLayout><Cart/></MainLayout></ProtectedRoute>}/>
           <Route path="/checkout" element={<ProtectedRoute user={loggedUser}><MainLayout><Checkout/></MainLayout></ProtectedRoute>}/>
+          <Route path="/admin-panel" element={<ProtectedRoute user={loggedUser}><AuthorizedRoute user={loggedUser}><MainLayout><AdminPanel/></MainLayout></AuthorizedRoute></ProtectedRoute>}/>
           <Route path="/login" element={<SimpleLayout><Login/></SimpleLayout>}/>
           <Route path="/sign-up" element={<SimpleLayout><SignUp/></SimpleLayout>}/>
         </Routes>
+        }
       </div>
   )
 }

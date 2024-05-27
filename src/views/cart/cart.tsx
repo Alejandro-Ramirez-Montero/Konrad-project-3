@@ -1,22 +1,16 @@
 import './cart.scss'
 import { useEffect, useState } from 'react';
 import { cartNotificationState } from '../../states/cart-notification-state';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import Section from '../../components/section/section'
 import SimpleList from '../../components/simple-list/simple-list';
 import { useNavigate } from 'react-router-dom';
-
-interface productInterface {
-  name: string,
-  path: string,
-  description: string,
-  price: string,
-  image: string,
-  categories: Array<string>,
-}
+import { userTokenState } from '../../states/user-token';
+import { requestCart, requestRemoveProductFromCart, requestUpdateProductQuantityInCart } from '../../utils/functions';
 
 interface cartProductInterface {
+  id: number,
   name: string,
   quantity: number,
   price: number,
@@ -25,40 +19,61 @@ interface cartProductInterface {
 }
 
 function Cart() {
-  const [cart, setCart] = useState<Array<cartProductInterface> | null>(localStorage.getItem('cart')? JSON.parse(localStorage.getItem('cart')!) : null);
+  const [cart, setCart] = useState<Array<cartProductInterface> | null>(null);
+  const [subtotal, setSubtotal] = useState<number>(0);
+  const [userToken, setUserToken] = useRecoilState<string | undefined>(userTokenState);
   const setCartNotifications = useSetRecoilState<number>(cartNotificationState);
   const navigate = useNavigate();
 
   const getProducts = () => {
-    if(localStorage.getItem('cart')){
-      setCart(JSON.parse(localStorage.getItem('cart')!));
-      //va fetch
+    if(userToken){
+      requestCart(userToken)
+      .then(cartList => {
+        const cartProducts: Array<cartProductInterface> = cartList.map((cartProduct: any) => ({
+          id: cartProduct.product.id,
+          name: cartProduct.product.name,
+          quantity: cartProduct.quantity,
+          price: cartProduct.product.price,
+          totalPrice: cartProduct.price,
+          image: cartProduct.product.image,
+        }));
+        setCart(cartProducts);
+      })
+      .catch();
     }
   }
 
-  const handleQuantity = (newQuantity:number, productName?:string) => {
-    const cartProduct = cart?.find(p => p.name == productName);
-    if(cartProduct){
-      cartProduct!.quantity = newQuantity;
-      const totalPrice = newQuantity * cartProduct!.price
-      cartProduct!.totalPrice = parseFloat(totalPrice.toFixed(2));
-      
-      const cartCopy:Array<cartProductInterface> = [...cart!];
-      const cartIndex = cartCopy.findIndex(p => p.name == productName);
-      cartCopy[cartIndex] = cartProduct;
-      setCart(cartCopy);
+  const handleQuantity = (productId: number, newQuantity: number) => {
+    if(userToken && cart){
+      requestUpdateProductQuantityInCart(userToken, productId, newQuantity)
+      .then(result => {
+        if(result){
+          getProducts();
+        }
+      })
+      .catch()
     }
   }
 
-  const removeProduct = (productName: string) => {
-    const cartCopy = cart?.filter(p => p.name !== productName);
-    if(cartCopy){
-      if(cartCopy.length === 0){
-        setCart([]);
-      }
-      else{
-        setCart(cartCopy);
-      }
+  const removeProduct = (productId: number) => {
+    if(userToken && cart){
+      requestRemoveProductFromCart(userToken, productId)
+      .then(result => {
+        if(result){
+          getProducts();
+        }
+      })
+      .catch();
+    }
+  }
+
+  const calculateSubtotal = () => {
+    let productsSubtotal: number = 0;
+    if(cart){
+      cart.forEach(product => {
+        productsSubtotal += parseFloat((product.price * product.quantity).toFixed(2));
+      });
+      setSubtotal(parseFloat(productsSubtotal.toFixed(2)));
     }
   }
 
@@ -72,12 +87,7 @@ function Cart() {
 
   useEffect(() => {
     if(cart){
-      if(cart.length == 0){
-        localStorage.removeItem('cart');  
-      }
-      else{
-        localStorage.setItem('cart', JSON.stringify(cart));
-      }
+      calculateSubtotal();
       setCartNotifications(cart.length);
     }
     else{
@@ -92,10 +102,12 @@ function Cart() {
             <div className='cart'>
               <SimpleList list={cart} handleQuantity={handleQuantity} removeProduct={removeProduct}/>
               <div className='cart__checkout-container'>
-                <p style={{fontWeight: "700"}}>Price Subtotal: </p>
-                <p>$99999</p>
-                <p style={{fontWeight: "300", fontSize: "15px"}}>*taxes and shipping not included yet</p>
-                <button className='cart__cart-button' onClick={() => navigateToCheckout()}>Proceed to Checkout</button>
+                <p className='cart__checkout-title'>Price Subtotal: </p>
+                <div className='cart__checkout-content'>
+                  <p style={{fontSize: "25px"}}>${subtotal}</p>
+                  <p style={{fontWeight: "300", fontSize: "15px", color:"lightgray"}}>*taxes and shipping not included yet</p>
+                  <button className='cart__cart-button' onClick={() => navigateToCheckout()}>Proceed to Checkout</button>
+                </div>
               </div>
             </div>
             :

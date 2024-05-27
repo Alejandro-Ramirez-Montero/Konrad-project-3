@@ -1,37 +1,35 @@
 
-.checkout {
+.admin-panel {
     display: flex;
-    width: 100%;
+    flex-direction: column; 
     height: 100%;
+    gap: rem(20);
 
-    &__pay-message-container {
-        display: flex;
-        position: relative;
-        flex-direction: column;
-        justify-content: center;
-        padding: rem(40);
-        background-color: rgba($bg-dark-blue, 1.0);
-        height: min(rem(300), 80%);
-        width: min(rem(500), 90%);
-        border-radius: 20px;
+    &__page-title {
+        background-color: rgba($bg-dark-blue, 1);
+        width: 100%;
+        text-align: left;
+        padding: 20px;
         color: white;
-        font-size: rem(35);
     }
 
     &__button {
-        position: absolute;
-        bottom: rem(20);
-        background-color: rgba($light-green, 0.7);
-        align-self: flex-end;
+        align-self:flex-start;
+        margin-top: auto;
+        background-color: $logo-blue;
         color: white;
-        width: rem(200);
-        height: rem(50);
+        width: 200px;
+        height: 50px;
         font-size: rem(20);
         border-radius: 5px;
         border: 2px solid transparent;
         outline: none;
         padding: rem(2);
         cursor: pointer;
+
+        &--brown {
+            background-color: brown;
+        }
 
         &:hover:not(:disabled){
             border: 3px solid rgb(255, 255, 255);
@@ -52,5 +50,22 @@
             color: rgba(white, 0.3);
         }
 
+    }
+
+
+    @include computer() {
+
+        & {
+            flex-direction: row;
+        }
+
+        &__checkout-container {
+            height: fit-content;
+            width: 30%;
+        }
+
+        &__cart-button {
+            width: 100%;
+        }
     }
 }

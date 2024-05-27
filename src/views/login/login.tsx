@@ -5,35 +5,25 @@ import LoginForm from '../../components/login-form/login-form';
 import { useRecoilState } from 'recoil';
 import { loggedUserState } from '../../states/logged-user';
 import { Link, useNavigate } from 'react-router-dom';
-
-interface LoggedUserInterface {
-  email: string;
-  name: string;
-  password: string;
-}
+import { userTokenState } from '../../states/user-token';
+import { requestLogin } from '../../utils/functions';
 
 function Login() {
   const [showAlertMessage, setShowAlertMessage] = useState<boolean>(false);
-  const [loggedUser, setLoggedUser] = useRecoilState<LoggedUserInterface | undefined>(loggedUserState);
+  const [userToken, setUserToken] = useRecoilState<string | undefined>(userTokenState);
   const navigate = useNavigate();
 
   const handleLogin = (email: string, password: string) => {
-    fetch('../../../users.json')
-    .then(response => response.json())
-    .then((data: Array<LoggedUserInterface>) => {
-      const user = data.find(user => user.email === email && user.password == password);
-      return user;
-    })
-    .then(user => user? setLoggedUser(user) : setShowAlertMessage(true))
-    .catch();
+    requestLogin(email, password)
+    .then(token =>  setUserToken(token))
+    .catch(error => setShowAlertMessage(true));
   }
 
   useEffect(() => {
-    if(loggedUser){
-      //localStorage.setItem('user', JSON.stringify(loggedUser));
+    if(userToken){
       navigate('/', { replace: true });
     }
-  },[loggedUser]);
+  },[userToken]);
 
   return (
       <main className="main main--padding-top-0">

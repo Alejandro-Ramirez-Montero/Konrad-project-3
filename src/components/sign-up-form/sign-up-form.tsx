@@ -3,11 +3,13 @@ import './styles.scss';
 
 interface SignUpFormProps {
     showAlertMessage: boolean;
+    showSuccessMessage: boolean;
     setShowAlertMessage: (newShowAlertMessage: boolean) => void;
-    handleSignUp: (email: string, fullName: string, password: string, confirmPassword: string) => void;
+    setShowSuccessMessage: (newShowSuccessMessage: boolean) => void;
+    handleSignUp: (email: string, password: string, fullName: string) => void;
 }
 
-const SignUpForm:React.FC<SignUpFormProps> = ({showAlertMessage, setShowAlertMessage, handleSignUp}) => {
+const SignUpForm:React.FC<SignUpFormProps> = ({showAlertMessage, showSuccessMessage, setShowAlertMessage, setShowSuccessMessage, handleSignUp}) => {
     const [email, setEmail] = useState<string>('');
     const [fullName, setFullName] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -50,9 +52,10 @@ const SignUpForm:React.FC<SignUpFormProps> = ({showAlertMessage, setShowAlertMes
     }
 
     const handleSubmit = (e: FormEvent) => {
+        setShowSuccessMessage(false);
         e.preventDefault();
         if(validForm){
-            handleSignUp(email.trim(), fullName.trim(), password.trim(), confirmPassword.trim());
+            handleSignUp(email.trim(), password.trim(), fullName.trim());
         }
     }
 
@@ -85,7 +88,8 @@ const SignUpForm:React.FC<SignUpFormProps> = ({showAlertMessage, setShowAlertMes
             </div>
         </div>
         <div className={`sign-up-form__alert-message ${showAlertMessage || alertMessage? '' : 'sign-up-form__alert-message--hide'}`}>{showAlertMessage? 'An account with this email already exists' : alertMessage}</div>
-        <button className='sign-up-form__button' type="submit" disabled={!validForm}>Log In</button>
+        <div className={`sign-up-form__alert-message sign-up-form__alert-message--success ${showSuccessMessage? '' : 'sign-up-form__alert-message--hide'}`}>{'Account created successfuly'}</div>
+        <button className='sign-up-form__button' type="submit" disabled={!validForm}>Create Account</button>
     </form>
     );
 }

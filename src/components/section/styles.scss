@@ -12,14 +12,13 @@
     overflow: hidden;
 
     &__title {
-        color: white;
         font-size: rem(25);
         transition: transform 2s ease;
         white-space: nowrap;
         transform-origin: left center;
     }
 
-    & form {
+    & .section__subsection {
         //transition: display 10s ease 1s;
         //color: white;
         transition: opacity 2s ease 1.5s;
@@ -27,18 +26,30 @@
     }
 
     &--brown {
+        color: white;
         background-color: $alternate-brown;
     }
 
     &--dark-blue {
+        color: white;
         background-color: $bg-dark-blue;
     }
 
     &--beige {
+        color: white;
         background-color: $light-beige;
-    }   
+    }
+    
+    &--white {
+        background-color: white;
+    }
+
+    &--logo-light-green {
+        background-color: $logo-light-green;
+    }
 
     &--fallen-tree-bg {
+        color: white;
         background-color: #1a2729;
         background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/public/images/redwoods-background.jpg');
         background-size: 100%;
@@ -46,6 +57,7 @@
     }
 
     &--woods-bg {
+        color: white;
         background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/public/images/woods-bg.jpg');
         background-size: 100%;
         background-attachment: fixed;
@@ -53,6 +65,7 @@
     }
 
     &--campfire-bg {
+        color: white;
         background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/public/images/campfire.webp');
         background-size: 100%;
         background-attachment: fixed;
@@ -60,6 +73,7 @@
     }
 
     &--camping-bg {
+        color: white;
         background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/public/images/california-camping.webp');
         background-size: 90%;
         background-attachment: fixed;
@@ -91,7 +105,7 @@
                 //animation: rotateAnimation 2.7s ease-in forwards;
             }
 
-            & form {
+            & .section__subsection {
                 //padding: 40px 20px;
                 opacity: 0;
                 transition: opacity 0.3s ease;

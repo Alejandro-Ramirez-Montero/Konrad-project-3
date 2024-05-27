@@ -1,19 +1,24 @@
 
-.shipping-form {
+.product-form {
     display: flex;
     flex-direction: column;
     margin: auto;
-    height: rem(300);
-    width: rem(450);
+    height: fit-content;
+    width: min(rem(1000), 90%);
     padding: rem(20);
     border-radius: 10px;
     gap: rem(20);
     color: $logo-light-green;
-    background-color: rgba($bg-dark-blue, 0.9);
+    background-color: rgba($logo-blue, 1);
+
+    &__title {
+        text-align: left;
+    }
 
     &__row {
         display: flex;
         gap: rem(10);
+        justify-content: center;
     }
 
     &__col {
@@ -23,6 +28,10 @@
         text-align: justify;
         font-size: rem(16);
         gap: rem(2);
+
+        &--small {
+            flex: 1;
+        }
     }
 
     &__label {
@@ -40,7 +49,15 @@
         }
     }
 
+    &__text-area {
+        resize: vertical;
+        height: 200px;
+        max-height: 60vh;
+        
+    }
+
     &__message {
+        margin-top: 65px;
         display: flex;
         height: 10px;
         font-size: rem(14);
@@ -99,12 +116,18 @@
 
     @include tablet() {
         &{
+            &__col--small{
+                flex: 0;
+                min-width: 200px;
+            }
             //width: rem(400);
         }
     }
     @include computer() {
         &{
-            //width: 60%;
+            &__col--small{
+                min-width: 300px;
+            }
         }
     }
 

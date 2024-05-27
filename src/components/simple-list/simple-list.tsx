@@ -3,17 +3,18 @@ import './styles.scss';
 import QuantityAdjuster from '../quantity-adjuster/quantity-adjuster';
 
 interface cartProductInterface {
+    id: number,
     name: string,
     quantity: number,
     price: number,
     totalPrice: number,
     image: string,
-}
+  }
 
 interface SimpleListProps {
     list: Array<cartProductInterface>,
-    handleQuantity: (newQuantity: number, productName?: string) => void,
-    removeProduct: (productName: string) => void
+    handleQuantity: (productId: number, newQuantity: number,) => void,
+    removeProduct: (productId: number) => void
 }
 
 const SimpleList:React.FC<SimpleListProps> = ({list, handleQuantity, removeProduct}) => {
@@ -28,8 +29,8 @@ const SimpleList:React.FC<SimpleListProps> = ({list, handleQuantity, removeProdu
                         <div className='simple-list__grid'>
                             <span className='simple-list__price'>{'Quantity Price: $' + product.totalPrice}</span>
                             <span className='simple-list__price'>{'Unit Price: $' + product.price}</span>
-                            <QuantityAdjuster handleQuantity={handleQuantity} productName={product.name} startingQuantity={product.quantity}/>
-                            <button className='simple-list__button' onClick={() => removeProduct(product.name)}>Remove</button>
+                            <QuantityAdjuster handleQuantity={handleQuantity} productId={product.id} startingQuantity={product.quantity}/>
+                            <button className='simple-list__button' onClick={() => removeProduct(product.id)}>Remove</button>
                         </div>
                     </div>
                 </li>

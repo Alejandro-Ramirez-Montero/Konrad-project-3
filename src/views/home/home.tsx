@@ -49,7 +49,6 @@ function Home() {
   useEffect(() =>{
     const params = new URLSearchParams(location.search);
     const id = params.get("id");
-    console.log(location);
 
     if (id === "featured-section" && featuredCategoriesRef.current) {
       featuredCategoriesRef.current.scrollIntoView({ behavior: "smooth"});
