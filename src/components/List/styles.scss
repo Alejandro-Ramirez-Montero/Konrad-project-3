@@ -82,6 +82,7 @@
 
     &__price {
         color: $light-gray;
+        font-size: rem(18);
     }
 
     @include tablet() {

@@ -42,9 +42,7 @@ const PaymentForm:React.FC<PaymentFormProps> = ({previousStep, nextStep, active}
 
     const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
         if(/^(?:\d{0,2}\/?\d{0,2}|)$/.test(e.target.value)){
-            console.log(e.target.value);
             if (date.length > e.target.value.length) {
-                console.log(date.slice(date.length-1));
                 if(date.slice(date.length-1) === '/'){
                     setDate(e.target.value.slice(0, e.target.value.length - 1));
                 }
@@ -155,11 +153,9 @@ const PaymentForm:React.FC<PaymentFormProps> = ({previousStep, nextStep, active}
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         if(validForm){
-            //setear los inputs en el recoil
             savePaymentinfo();
             nextStep();
         }
-        //handleLogin(email.trim(), password.trim());
     }
 
     const validateForm = () => {

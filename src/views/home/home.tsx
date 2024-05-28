@@ -9,13 +9,14 @@ import SimpleCard from '../../components/simple-card/simple-card'
 import List from '../../components/List/list';
 
 interface productInterface {
+  id: number | undefined,
   name: string,
   path: string,
   description: string,
   price: string,
   image: string,
-  categories: Array<string>,
-}
+  category: string,
+}  
 
 function Home() {
   const navigate = useNavigate();

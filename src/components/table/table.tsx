@@ -27,7 +27,7 @@ const Table:React.FC<TableProps> = ({columns, data, edit, deleteRow}) => {
                 {data.map((row, rowIndex) => (
                     <tr className='table__row' key={rowIndex}>
                     {columns.map((column, colIndex) => (
-                        <td className='table__column' key={colIndex}>{`${column.accessor == 'price'? '$' : ''} ${row[column.accessor]}`}</td>
+                        <td className='table__column' key={colIndex}>{`${column.accessor == 'price' || column.accessor == 'total'? '$' : ''} ${row[column.accessor]}`}</td>
                     ))}
                     { edit &&
                         <td className='table__button-column'><button className='table__button' type='button' onClick={() => edit(row.id)}>Edit</button></td>

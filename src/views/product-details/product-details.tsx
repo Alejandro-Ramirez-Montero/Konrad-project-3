@@ -31,7 +31,7 @@ function ProductDetails() {
   const navigate = useNavigate();
 
   const getProduct = () => {
-    requestProduct(userToken!, productPath!)
+    requestProduct(productPath!)
     .then((data) => {
       if(data){
         const pageProduct: productInterface = {
@@ -92,6 +92,9 @@ function ProductDetails() {
         removeFromWishlist();
       }
     }
+    else{
+      window.alert('You need to be logged in to add products to your wishlist.');
+    }
   }
 
   const addToCart = () => {
@@ -100,27 +103,32 @@ function ProductDetails() {
       .then(productInCart => {
         if(productInCart){
           requestAddProductQuantitytoCart(userToken, product.id, quantity)
-          .then(data => {
-            //el backend deberia devolver el objeto actualizado
+          .then(response => {
+            if(response){
+              window.alert(`Added ${quantity} ${product.name} to cart.`);
+            }
           })
           .catch()
         }
         else{
           requestAddProductToCart(userToken, product.id, quantity)
-          .then(data => {
-            //el backend deberia devolver el objeto actualizado
+          .then(response => {
+            if(response){
+              window.alert(`Added ${quantity} ${product.name} to cart.`);
+            }
           })
           .catch()
         }
       })
       .catch();
-      //setCartNotifications(cart.length);
       setResetQuantity(!resetQuantity);
-      window.alert(`Added ${quantity} ${product.name} to cart.`);
+    }
+    else{
+      window.alert('You need to be logged in to add products to your cart.');
     }
   }
 
-  const handleQuantity = (newQuantity: number) => {
+  const handleQuantity = (productId: number, newQuantity: number) => {
     quantity = newQuantity;
   }
 

@@ -6,8 +6,6 @@ interface SimpleCardProps {
     buttonAction: () => void;
 }
 
-//ARREGLAR onCLick
-
 const SimpleCard:React.FC<SimpleCardProps> = ({title, classes, buttonAction}) => {
     return(
         <button className={'simple-card ' + classes} onClick={buttonAction}>

@@ -46,11 +46,9 @@ export const requestUserData = (userToken: string) => {
 
 //PRODUCT FUNCTIONS
 
-export const requestAllProducts = (userToken: string) => {
+export const requestAllProducts = () => {
     return axios.get<any>('http://localhost:8080/api/product', {
-        headers: {
-            Authorization: `Bearer ${userToken}`
-        }
+        
     })
     .then(response => {
         return response.data;
@@ -61,11 +59,9 @@ export const requestAllProducts = (userToken: string) => {
     });
 };
 
-export const requestProductById = (userToken: string, productId: number) => {
+export const requestProductById = (productId: number) => {
     return axios.get<any>('http://localhost:8080/api/product/' + productId, {
-        headers: {
-            Authorization: `Bearer ${userToken}`
-        }
+
     })
     .then(response => {
         return response.data;
@@ -76,11 +72,9 @@ export const requestProductById = (userToken: string, productId: number) => {
     });
 };
 
-export const requestProduct = (userToken: string, path: string) => {
+export const requestProduct = (path: string) => {
     return axios.get<any>('http://localhost:8080/api/product/getByPath/' + path, {
-        headers: {
-            Authorization: `Bearer ${userToken}`
-        }
+
     })
     .then(response => {
         return response.data;
@@ -99,7 +93,7 @@ interface productInterface {
     price: string,
     image: string,
     category: string,
-  }
+}
 
 export const requestCreateProduct = (userToken: string, product: productInterface) => {
     return axios.post<any>('http://localhost:8080/api/product',
@@ -376,6 +370,115 @@ export const requestRemoveProductFromWishlist = (userToken: string, productId: n
 
 export const requestAddWishlistToCart = (userToken: string) => {
     return axios.post<any>('http://localhost:8080/api/shoppingCart/addWishlistToCart', {}, {
+        headers: {
+            Authorization: `Bearer ${userToken}`
+        }
+    })
+    .then(response => {
+        return response.data;
+    })
+    .catch(error => {
+      //setError('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
+      throw error;
+    });
+};
+
+//ORDER FUNCTIONS
+
+export const requestAllOrders = (userToken: string) => {
+    return axios.get<any>('http://localhost:8080/api/order/getAllOrders', {
+        headers: {
+            Authorization: `Bearer ${userToken}`
+        }
+    })
+    .then(response => {
+        return response.data;
+    })
+    .catch(error => {
+      //setError('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
+      throw error;
+    });
+};
+
+export const requestAllOrdersByUser = (userToken: string) => {
+    return axios.get<any>('http://localhost:8080/api/order/getAllOrdersByUser', {
+        headers: {
+            Authorization: `Bearer ${userToken}`
+        }
+    })
+    .then(response => {
+        return response.data;
+    })
+    .catch(error => {
+      //setError('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
+      throw error;
+    });
+};
+
+export const requestOrderById = (userToken: string, orderId: number) => {
+    return axios.get<any>('http://localhost:8080/api/order/getOrderById/' + orderId, {
+        headers: {
+            Authorization: `Bearer ${userToken}`
+        }
+    })
+    .then(response => {
+        return response.data;
+    })
+    .catch(error => {
+      //setError('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
+      throw error;
+    });
+};
+
+export const requestOrderByIdAsUser = (userToken: string, orderId: number) => {
+    return axios.get<any>('http://localhost:8080/api/order/getOrderByIdAsUser/' + orderId, {
+        headers: {
+            Authorization: `Bearer ${userToken}`
+        }
+    })
+    .then(response => {
+        return response.data;
+    })
+    .catch(error => {
+      //setError('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
+      throw error;
+    });
+};
+
+
+
+export const requestEditOrderStatus = (userToken: string, orderId:number, newStatus: number) => {
+    return axios.patch<any>('http://localhost:8080/api/order/editStatus', {
+        id: orderId,
+        status: newStatus
+    }, 
+    {
+        headers: {
+            Authorization: `Bearer ${userToken}`
+        }
+    })
+    .then(response => {
+        return response.data;
+    })
+    .catch(error => {
+      //setError('Credenciales incorrectas. Por favor, inténtalo de nuevo.');
+      throw error;
+    });
+};
+
+interface orderDetailsInterface {
+    province: string,
+    city: string,
+    address1: string,
+    address2: string | undefined,
+    zipCode: string,
+    cardNumber: string,
+}
+
+export const requestConvertCartToOrder = (userToken: string, orderDetails: orderDetailsInterface) => {
+    return axios.post<any>('http://localhost:8080/api/order/convertCartToOrder',
+        orderDetails
+    , {
         headers: {
             Authorization: `Bearer ${userToken}`
         }

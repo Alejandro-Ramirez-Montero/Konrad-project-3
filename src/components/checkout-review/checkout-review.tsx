@@ -1,7 +1,6 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import './styles.scss';
 import { checkoutState } from '../../states/checkout-state';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 interface PaymentFormProps {
     previousStep: () => void;
@@ -23,17 +22,6 @@ interface CheckoutInterface {
 const CheckoutReview:React.FC<PaymentFormProps> = ({previousStep, pay, active, subtotal, total}) => {
     const checkoutInfo = useRecoilValue<CheckoutInterface>(checkoutState);
 
-    // const savePaymentinfo = () => {
-    //     setCheckoutInfo((checkoutInfo) => ({
-    //         ...checkoutInfo,
-    //         cardNumber: parseInt(cardNumber, 10),
-    //         cardHolderName: cardHolderName,
-    //         expireDate: convertToDate(date),
-    //         cvv: parseInt(cvv, 10),
-    //     }));
-    // }
-
-
     const maskCreditCard = (cardNumber: number | undefined) => {
         if(cardNumber){
             const card = cardNumber.toString();
@@ -47,12 +35,6 @@ const CheckoutReview:React.FC<PaymentFormProps> = ({previousStep, pay, active, s
             return maskedSection + visibleSection;
         }
       }
-
-
-    // useEffect(() => {
-    //     validateForm();
-    // },[cardNumber, cardHolderName, date, cvv]);
-
 
     return(
     <div className="checkout-review section__subsection">

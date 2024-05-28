@@ -9,7 +9,8 @@
     padding: rem(40) rem(20);
     text-align: left;
     gap: rem(10);
-    overflow: hidden;
+    overflow-x: scroll;
+    scrollbar-width: none;
 
     &__title {
         font-size: rem(25);
@@ -19,10 +20,11 @@
     }
 
     & .section__subsection {
-        //transition: display 10s ease 1s;
-        //color: white;
         transition: opacity 2s ease 1.5s;
-        //min-height: 300px;
+    }
+
+    &--h-fit-content {
+        height: fit-content;
     }
 
     &--brown {
@@ -98,15 +100,10 @@
             
             & h2 {
                 transform: translate(50%, -10px) rotate(90deg);
-                //transition: transform 0.5s ease;
-                //writing-mode: vertical-lr;
-                //transition: writing-mode 0.5s ease;
                 transform-origin: left center;
-                //animation: rotateAnimation 2.7s ease-in forwards;
             }
 
             & .section__subsection {
-                //padding: 40px 20px;
                 opacity: 0;
                 transition: opacity 0.3s ease;
             }

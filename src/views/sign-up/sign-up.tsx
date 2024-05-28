@@ -2,17 +2,10 @@ import './sign-up.scss'
 import { useEffect, useState } from 'react';
 
 import SignUpForm from '../../components/sign-up-form/sign-up-form';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { loggedUserState } from '../../states/logged-user';
+import { useRecoilValue } from 'recoil';
 import { Link, useNavigate } from 'react-router-dom';
 import { requestSignUp } from '../../utils/functions';
 import { userTokenState } from '../../states/user-token';
-
-interface LoggedUserInterface {
-  email: string;
-  name: string;
-  password: string;
-}
 
 function SignUp() {
   const [showAlertMessage, setShowAlertMessage] = useState<boolean>(false);

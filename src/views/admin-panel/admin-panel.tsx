@@ -1,13 +1,11 @@
 import './admin-panel.scss'
 import { useEffect, useState } from 'react';
-import { cartNotificationState } from '../../states/cart-notification-state';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import Section from '../../components/section/section'
-import SimpleList from '../../components/simple-list/simple-list';
 import { useNavigate } from 'react-router-dom';
 import { userTokenState } from '../../states/user-token';
-import { requestAllProducts, requestCart, requestCreateProduct, requestDeleteProduct, requestRemoveProductFromCart, requestUpdateProduct, requestUpdateProductQuantityInCart } from '../../utils/functions';
+import { requestAllOrders, requestAllProducts, requestCreateProduct, requestDeleteProduct, requestUpdateProduct } from '../../utils/functions';
 import Table from '../../components/table/table';
 import Modal from '../../components/modal/modal';
 import ProductForm from '../../components/product-form/product-form';
@@ -22,17 +20,42 @@ interface productInterface {
   category: string,
 }
 
+interface orderInterface {
+  address1: string,
+  address2: string | undefined,
+  cardNumber: string,
+  shipping: string,
+  date: string,
+  id: number,
+  status: string,
+  total: number,
+  zipCode: string,
+  email: string,
+  fullName: string
+}
+
 function AdminPanel() {
-  const columns = [
+  const productColumns = [
     { header: 'Id', accessor: 'id' },
     { header: 'Name', accessor: 'name' },
     { header: 'Price', accessor: 'price' },
     { header: 'Category', accessor: 'category' },
   ];
 
+  const orderHistoryColumns = [
+    { header: 'Id', accessor: 'id' },
+    { header: 'Date', accessor: 'date' },
+    { header: 'Client', accessor: 'email' },
+    { header: 'Shipping', accessor: 'shipping' },
+    { header: 'Zip Code', accessor: 'zipCode' },
+    { header: 'Total', accessor: 'total' },
+    { header: 'Status', accessor: 'status' },
+  ];
+  const statusOptions = ['Cancelled', 'Pending', 'Confirmed'];
+
   const [products, setProducts] = useState<Array<productInterface> | null>(null);
+  const [orderHistory, setOrderHistory] = useState<Array<orderInterface> | null>(null);
   const [productToEdit, setProductToEdit] = useState<productInterface>();
-  const [productToCreate, setProductToCreate] = useState<productInterface>();
   const [userToken, setUserToken] = useRecoilState<string | undefined>(userTokenState);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [formMode, setformMode] = useState<boolean>(true);
@@ -40,7 +63,7 @@ function AdminPanel() {
 
   const getProducts = () => {
     if(userToken){
-      requestAllProducts(userToken)
+      requestAllProducts()
       .then(productList => {
         setProducts(productList);
       })
@@ -101,21 +124,47 @@ function AdminPanel() {
     }
   }
 
+  const getOrderHistory = () => {
+    if(userToken){
+      requestAllOrders(userToken)
+      .then(orderList => {
+        const orders: Array<orderInterface> = orderList.map((order: any) => ({
+          address1: order.address1,
+          address2: order?.address2,
+          cardNumber: order.cardNumber,
+          shipping: `${order.province}, ${order.city}`,
+          date: order.date.split("T")[0],
+          id: order.id,
+          status: statusOptions[order.status],
+          total: order.total,
+          zipCode: order.zipCode,
+          email: order.user.email,
+          fullName: order.user.fullName
+        }));
+        setOrderHistory(orders.reverse());
+      })
+      .catch();
+    }
+  }
+
   useEffect(() =>{
     getProducts();
+    getOrderHistory();
   },[]);
 
   return (
       <main className="main">
         <h1 className='admin-panel__page-title'>Administrator Panel</h1>
-        <Section title='Manage Products:' classes='section--woods-bg section--h-hundred'>
+        <Section title='Manage Products:' classes='section--woods-bg'>
           <button className='admin-panel__button' onClick={() => createProduct()}> Add New Product</button>
           {products &&
-            <Table columns={columns} data={products} edit={editProduct} deleteRow={deleteProduct}/>
+            <Table columns={productColumns} data={products} edit={editProduct} deleteRow={deleteProduct}/>
           } 
         </Section>
-        <Section title='Cart:' classes='section--logo-light-green section--vh'>
-          
+        <Section title='Order History:' classes='section--brown'>
+          {orderHistory &&
+            <Table columns={orderHistoryColumns} data={orderHistory}/>
+          } 
         </Section>
         <Modal openModal={openModal}>
           { formMode?

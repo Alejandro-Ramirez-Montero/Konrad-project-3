@@ -6,7 +6,7 @@ interface SectionProps {
     children?: React.ReactNode;
 
 }
-//'section section--brown section--first section--vh'
+
 const Section:React.FC<SectionProps> = ({title, classes, children}) => {
     return(
     <section className={'section ' + classes}>

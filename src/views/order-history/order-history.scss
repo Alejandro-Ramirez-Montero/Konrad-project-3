@@ -1,0 +1,20 @@
+
+.admin-panel {
+    display: flex;
+    flex-direction: column; 
+    height: 100%;
+    gap: rem(20);
+
+    &__page-title {
+        background-color: rgba($bg-dark-blue, 1);
+        width: 100%;
+        text-align: left;
+        padding: 20px;
+        color: white;
+    }
+
+
+    @include computer() {
+
+    }
+}

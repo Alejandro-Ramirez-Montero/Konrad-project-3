@@ -1,7 +1,6 @@
 import './wishlist.scss'
 import { useEffect, useState } from 'react';
-import { cartNotificationState } from '../../states/cart-notification-state';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import Section from '../../components/section/section'
 import SimpleList from '../../components/simple-list/simple-list';
@@ -78,12 +77,12 @@ function Wishlist() {
   }
 
   const addWishlistToCart = () => {
-    //mandar solicitud de agregar productos al carrito y limpiar wishlist
     if(userToken){
       requestAddWishlistToCart(userToken)
       .then(response => {
         if(response){
           window.alert(`Added wishlist to cart.`);
+          getProducts();
         }
       })
       .catch()

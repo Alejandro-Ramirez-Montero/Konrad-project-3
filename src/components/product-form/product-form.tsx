@@ -66,12 +66,6 @@ const ProductForm:React.FC<ProductFormProps> = ({product, applyChanges, cancel})
         validateForm();
     },[name, path, description, price, image, category]);
 
-
-    // <div className="product-form__col">
-    //     <label htmlFor="cardHolderName">Card Holder Name:</label>
-    //     <input className='product-form__input' type="text" id="cardHolderName" placeholder='card holder name...' value={cardHolderName} onChange={(e:ChangeEvent<HTMLInputElement>)=> handleTextChange(e, setCardHolderName)}/>
-    // </div>
-
     return(
     <form className="product-form section__subsection" onSubmit={handleSubmit}>
         <h2 className='product-form__title'>{`${product? 'Edit' : 'Create'} Product:`}</h2>

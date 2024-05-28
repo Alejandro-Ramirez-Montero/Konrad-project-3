@@ -54,11 +54,9 @@ const ShippingForm:React.FC<ShippingFormProps> = ({nextStep, active}) => {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         if(validForm){
-            //setear los inputs en el recoil
             saveShippinginfo();
             nextStep();
         }
-        //handleLogin(email.trim(), password.trim());
     }
 
     const validateForm = () => {

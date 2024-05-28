@@ -19,6 +19,7 @@ import Wishlist from './views/wishlist/wishlist';
 import { userTokenState } from './states/user-token';
 import { requestUserData } from './utils/functions';
 import AdminPanel from './views/admin-panel/admin-panel';
+import OrderHistory from './views/order-history/order-history';
 
 interface LoggedUserInterface {
   email: string;
@@ -118,6 +119,7 @@ function App() {
           <Route path="/wishlist" element={<ProtectedRoute user={loggedUser}><MainLayout><Wishlist/></MainLayout></ProtectedRoute>}/>
           <Route path="/cart" element={<ProtectedRoute user={loggedUser}><MainLayout><Cart/></MainLayout></ProtectedRoute>}/>
           <Route path="/checkout" element={<ProtectedRoute user={loggedUser}><MainLayout><Checkout/></MainLayout></ProtectedRoute>}/>
+          <Route path="/order-history" element={<ProtectedRoute user={loggedUser}><MainLayout><OrderHistory/></MainLayout></ProtectedRoute>}/>
           <Route path="/admin-panel" element={<ProtectedRoute user={loggedUser}><AuthorizedRoute user={loggedUser}><MainLayout><AdminPanel/></MainLayout></AuthorizedRoute></ProtectedRoute>}/>
           <Route path="/login" element={<SimpleLayout><Login/></SimpleLayout>}/>
           <Route path="/sign-up" element={<SimpleLayout><SignUp/></SimpleLayout>}/>

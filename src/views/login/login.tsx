@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 
 import LoginForm from '../../components/login-form/login-form';
 import { useRecoilState } from 'recoil';
-import { loggedUserState } from '../../states/logged-user';
 import { Link, useNavigate } from 'react-router-dom';
 import { userTokenState } from '../../states/user-token';
 import { requestLogin } from '../../utils/functions';
@@ -30,7 +29,7 @@ function Login() {
         <div className="login">
           <img className="login__logo" src="/logo/logo.png" alt="CampGear logo"></img>
           <LoginForm showAlertMessage={showAlertMessage} setShowAlertMessage={setShowAlertMessage} handleLogin={handleLogin}/>
-          <div style={{color: 'white'}}>Already have an account? <Link to='/sign-up' className='login__link-to'>Sign Up</Link></div>
+          <div style={{color: 'white'}}>Dont have an account? <Link to='/sign-up' className='login__link-to'>Sign Up</Link></div>
         </div>
       </main>
   )

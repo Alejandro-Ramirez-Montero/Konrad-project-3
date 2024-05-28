@@ -14,8 +14,16 @@
         height: min(rem(300), 80%);
         width: min(rem(500), 90%);
         border-radius: 20px;
-        color: white;
-        font-size: rem(35);
+    }
+
+    &__pay-message {
+        color: $logo-light-green;
+        font-size: rem(30);
+
+        &--small {
+            color: $logo-light-green;
+            font-size: rem(16);
+        }
     }
 
     &__button {
@@ -25,7 +33,7 @@
         align-self: flex-end;
         color: white;
         width: rem(200);
-        height: rem(50);
+        height: rem(30);
         font-size: rem(20);
         border-radius: 5px;
         border: 2px solid transparent;

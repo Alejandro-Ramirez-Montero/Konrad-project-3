@@ -1,13 +1,14 @@
 import './styles.scss';
 
 interface productInterface {
+    id: number | undefined,
     name: string,
     path: string,
     description: string,
     price: string,
     image: string,
-    categories: Array<string>,
-  }
+    category: string,
+}  
 
 const List:React.FC<{classes: string, list: Array<productInterface>, showProduct: (productPath: string) => void}> = ({classes, list, showProduct}) => {
 

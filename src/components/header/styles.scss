@@ -77,18 +77,23 @@
         background-color: $light-white;
 
         &--visible{
-            right: rem(-1);
+            right: rem(0);
             transition: right 0.5s linear;
 
             & li {
-                margin-left: rem(-1);
+                margin-left: rem(0);
             }
         }
 
         &--invisible {
             right: rem(-200);
             transition: right 0.5s linear;
+
+            & li {
+                margin-left: rem(0);
+            }
         }
+
     }
 
     @include tablet() {

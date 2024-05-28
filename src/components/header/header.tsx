@@ -4,7 +4,7 @@ import { FaBars } from "react-icons/fa6";
 import { FaShoppingCart } from "react-icons/fa";
 import { FaRegEdit } from "react-icons/fa";
 import './styles.scss';
-import { useRecoilState, useSetRecoilState} from "recoil";
+import { useRecoilState } from "recoil";
 import { cartNotificationState } from "../../states/cart-notification-state";
 import { loggedUserState } from "../../states/logged-user";
 import { userTokenState } from "../../states/user-token";
@@ -13,7 +13,7 @@ interface LoggedUserInterface {
     email: string;
     fullName: string;
     role: string;
-  }
+}
 
 const Header:React.FC<{scrollToFooter: () => void}> = ({scrollToFooter}) => {
     const [cartNotifications, setCartNotifications] = useRecoilState<number>(cartNotificationState);
@@ -60,8 +60,9 @@ const Header:React.FC<{scrollToFooter: () => void}> = ({scrollToFooter}) => {
             <ul className={`header__menu ${oppenedMenu? 'header__menu--visible':'header__menu--invisible'}`}>
                 <li>{loggedUser && <div className="item__welcome-message">Welcome {loggedUser.fullName.split(' ')[0]}</div>}</li>
                 <li><button className="item__button" tabIndex={oppenedMenu? 0: -1} onClick={() => navigateTo('/?id=featured-section')}>Featured Categories</button></li>
-                <li><button className="item__button" tabIndex={oppenedMenu? 0: -1} onClick={() => navigateTo('/products-list/?id=products-section')}>Our Products</button></li>
+                <li><button className="item__button" tabIndex={oppenedMenu? 0: -1} onClick={() => navigateTo('/products-list/?id=products-section')}>Products</button></li>
                 <li><button className="item__button" tabIndex={oppenedMenu? 0: -1} onClick={() => navigateTo('/wishlist')}>Wishlist</button></li>
+                {loggedUser?.role == 'USER' && <li><button className="item__button" tabIndex={oppenedMenu? 0: -1} onClick={() => navigateTo('/order-history')}>Order History</button></li>}
                 <li><button className="item__button" tabIndex={oppenedMenu? 0: -1} onClick={() => {scrollToFooter(); handleMenu();}}>Socials and Legal Disclaimer</button></li>
                 <li><button className={`item__button ${userToken? 'item__button--hide' : ''}`} tabIndex={oppenedMenu? 0: -1} onClick={() => navigateTo('/login')}>Log In</button></li>
                 <li><button className={`item__button ${userToken? '' : 'item__button--hide'}`} tabIndex={oppenedMenu? 0: -1} onClick={() => handleLogout()}>Log Out</button></li>

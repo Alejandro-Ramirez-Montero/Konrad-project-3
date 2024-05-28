@@ -1,9 +1,5 @@
 
 .admin-panel {
-    display: flex;
-    flex-direction: column; 
-    height: 100%;
-    gap: rem(20);
 
     &__page-title {
         background-color: rgba($bg-dark-blue, 1);
@@ -15,7 +11,6 @@
 
     &__button {
         align-self:flex-start;
-        margin-top: auto;
         background-color: $logo-blue;
         color: white;
         width: 200px;
@@ -55,17 +50,5 @@
 
     @include computer() {
 
-        & {
-            flex-direction: row;
-        }
-
-        &__checkout-container {
-            height: fit-content;
-            width: 30%;
-        }
-
-        &__cart-button {
-            width: 100%;
-        }
     }
 }

@@ -10,15 +10,19 @@ import Pagination from '../../components/pagination/pagination';
 import Searchbar from '../../components/search-bar/search-bar';
 
 import { productsListState } from '../../states/products-list-state';
+import { requestAllProducts } from '../../utils/functions';
+
 
 interface productInterface {
+  id: number | undefined,
   name: string,
   path: string,
   description: string,
   price: string,
   image: string,
-  categories: Array<string>,
+  category: string,
 }
+
 
 interface filtersInterface {
   category: string,
@@ -49,7 +53,8 @@ function ProductsList() {
   const [clearFilters, setClearFilters] = useState<boolean>(false);
   const [firstRender, setFirstRender] = useState<boolean>(true);
 
-  const [filteredList, setFilteredList] = useRecoilState<{productsList: Array<productInterface>}>(productsListState);
+  //const [filteredList, setFilteredList] = useRecoilState<{productsList: Array<productInterface>}>(productsListState);
+  const [filteredList, setFilteredList] = useState<Array<productInterface>>();
 
   const getProducts = () => {
     fetch('../../../public/products.json')
@@ -60,11 +65,19 @@ function ProductsList() {
     .catch();
   }
 
+  // const getProducts = () => {
+  //   requestAllProducts()
+  //   .then(productList => {
+  //     setProductsList(productList);
+  //   })
+  //   .catch();
+  // }
+
   const getCategories = () => {
     let categoriesList:Array<string> = [];
     productsList?.map((product) => {
-      if(!categoriesList.includes(product.categories[0])){
-        categoriesList.push(product.categories[0]);
+      if(!categoriesList.includes(product.category)){
+        categoriesList.push(product.category);
       }
       setCategories(categoriesList);
     });
@@ -85,7 +98,7 @@ function ProductsList() {
     }
     else{
       if(filters.category !== ''){
-        filteredProducts = filteredProducts?.filter(product => product.categories[0] === filters.category);
+        filteredProducts = filteredProducts?.filter(product => product.category === filters.category);
       }
       if(filters.priceRange !== ''){
         let priceRange = getPriceRange();
@@ -118,12 +131,12 @@ function ProductsList() {
         }
       }
     }
-    setFilteredList({productsList: filteredProducts? filteredProducts : []});
+    setFilteredList(filteredProducts? filteredProducts : []);
   }
 
   const setLastPage = () => {
-    let lastPage:number =  Math.floor(filteredList.productsList.length / page.itemsPerPage);
-    lastPage += (filteredList.productsList.length % page.itemsPerPage > 0)? 1 : 0;
+    let lastPage:number =  Math.floor(filteredList? filteredList.length / page.itemsPerPage : 1);
+    lastPage += (filteredList? filteredList.length % page.itemsPerPage : 0 > 0)? 1 : 0;
     setPage({...page, lastPage: lastPage - 1, currentPage: 0});
   }
 
@@ -171,7 +184,7 @@ function ProductsList() {
 
   //modificar la lista que esta activa en pantalla
   useEffect(() =>{
-    setActiveList(filteredList.productsList.slice(page.currentPage * page.itemsPerPage, page.itemsPerPage * (page.currentPage+1)));
+    setActiveList(filteredList? filteredList.slice(page.currentPage * page.itemsPerPage, page.itemsPerPage * (page.currentPage+1)) : []);
   },[page]);
 
   useEffect(() =>{
