@@ -53,29 +53,20 @@ function ProductsList() {
   const [clearFilters, setClearFilters] = useState<boolean>(false);
   const [firstRender, setFirstRender] = useState<boolean>(true);
 
-  //const [filteredList, setFilteredList] = useRecoilState<{productsList: Array<productInterface>}>(productsListState);
   const [filteredList, setFilteredList] = useState<Array<productInterface>>();
 
   const getProducts = () => {
-    fetch('../../../public/products.json')
-    .then(response => response.json())
-    .then((data: Array<productInterface>) => {
-      setProductsList(data);
+    return requestAllProducts()
+    .then(productList => {
+      setProductsList(productList);
+      return productList;
     })
     .catch();
   }
 
-  // const getProducts = () => {
-  //   requestAllProducts()
-  //   .then(productList => {
-  //     setProductsList(productList);
-  //   })
-  //   .catch();
-  // }
-
-  const getCategories = () => {
+  const getCategories = (listOfProducts: Array<productInterface>) => {
     let categoriesList:Array<string> = [];
-    productsList?.map((product) => {
+    listOfProducts.map((product) => {
       if(!categoriesList.includes(product.category)){
         categoriesList.push(product.category);
       }
@@ -94,7 +85,7 @@ function ProductsList() {
   const applyFilters = () => {
     let filteredProducts = productsList?.slice();
     if(search !== ''){
-      filteredProducts = filteredProducts?.filter(product => product.name.toLowerCase().includes(search));
+      filteredProducts = filteredProducts?.filter(product => product.name.toLowerCase().includes(search.toLowerCase()));
     }
     else{
       if(filters.category !== ''){
@@ -158,19 +149,18 @@ function ProductsList() {
     return range
   }
 
-  //Traerse la lista de productos aplicar filtro de categoria si viene en parametro
+  //Traerse la lista de productos y obtener las categorias
   useEffect(() =>{
-    getProducts();
+    getProducts()
+    .then(listOfProducts => {
+      if(listOfProducts){
+        getCategories(listOfProducts);
+      }
+    })
+    .catch();
   },[]);
 
-  //Obtener las categorias que existen en la lista de productos para agregarlos al dropdown de categorias
-  useEffect(() =>{
-    if(productsList !== undefined){
-      getCategories();
-    }
-  },[productsList]);
-
-  //aplicar el filtro a la lista de productos que se le muestra al usuario
+  //aplicar el filtro a la lista de todos los productos para obtener los productos con el filtro
   useEffect(() =>{
     if(productsList !== undefined){
       applyFilters();
@@ -187,6 +177,7 @@ function ProductsList() {
     setActiveList(filteredList? filteredList.slice(page.currentPage * page.itemsPerPage, page.itemsPerPage * (page.currentPage+1)) : []);
   },[page]);
 
+  //limpia los filtros si la persona busca en el search
   useEffect(() =>{
     if(search != ''){
       setClearFilters(!clearFilters);
@@ -217,7 +208,7 @@ function ProductsList() {
                   <Dropdown title='Price Range' field='priceRange' disabled={search !== ''? true : false} addFilter={addFilter} options={['$0 - $49.99', '$50 - $99.99', '$100 - $149.99', '$150+']} clearFilter={clearFilters}/>
                   <button className="filters-button filters-button--s-screen" onClick={handleClearFilters}>Clear Selection</button>
                 </div>
-                <button className="filters-button filters-button--m-screen" onClick={handleClearFilters/*hacer limpiado de filtros*/}>Clear Selection</button>
+                <button className="filters-button filters-button--m-screen" onClick={handleClearFilters}>Clear Selection</button>
               </div>
               <List list={activeList} showProduct={showProduct} classes='product-list--grid'></List>
               <Pagination currentPage={page.currentPage} lastPage={page.lastPage} setCurrentPage={setCurrentPage}/>

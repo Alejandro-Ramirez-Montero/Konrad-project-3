@@ -1,3 +1,4 @@
+/*
 import './cart.scss'
 import { useEffect, useState } from 'react';
 import { cartNotificationState } from '../../states/cart-notification-state';
@@ -38,12 +39,6 @@ function Cart() {
           image: cartProduct.product.image,
         }));
         setCart(cartProducts);
-        if(cartList){
-          setCartNotifications(true);
-        }
-        else{
-          setCartNotifications(false);
-        }
       })
       .catch();
     }
@@ -125,3 +120,4 @@ function Cart() {
 }
 
 export default Cart
+*/

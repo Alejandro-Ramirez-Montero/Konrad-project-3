@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 import Section from '../../components/section/section'
 import { useNavigate } from 'react-router-dom';
 import { userTokenState } from '../../states/user-token';
-import { requestAllOrders, requestAllProducts, requestCreateProduct, requestDeleteProduct, requestUpdateProduct } from '../../utils/functions';
+import { requestAllOrders, requestAllProducts, requestCreateProduct, requestDeleteProduct, requestEditOrderStatus, requestUpdateProduct } from '../../utils/functions';
 import Table from '../../components/table/table';
 import Modal from '../../components/modal/modal';
 import ProductForm from '../../components/product-form/product-form';
@@ -52,6 +52,12 @@ function AdminPanel() {
     { header: 'Status', accessor: 'status' },
   ];
   const statusOptions = ['Cancelled', 'Pending', 'Confirmed'];
+
+  const orderButtonsMap: { [key: string]: [(...args: any[]) => void, disabledCondition: string[], conditionColumn: string | null, style: string, args?: any[]] } = {
+    //View: [() => {}, [], null, 'blue'],
+    Confirm: [(orderId, buttonName) => {changeOrderStatus(orderId, buttonName)}, [statusOptions[2]], 'status', '', ['id']],
+    Cancel: [(orderId, buttonName) => {changeOrderStatus(orderId, buttonName)}, [statusOptions[0], statusOptions[2]], 'status', 'brown', ['id']],
+  };
 
   const [products, setProducts] = useState<Array<productInterface> | null>(null);
   const [orderHistory, setOrderHistory] = useState<Array<orderInterface> | null>(null);
@@ -147,6 +153,30 @@ function AdminPanel() {
     }
   }
 
+  const changeOrderStatus = (orderId: number, buttonName: string) => {
+    const newStatus = buttonName == 'Confirm'? 2 : 0;
+    if(userToken){
+      if(buttonName == 'Confirm'){
+        requestEditOrderStatus(userToken, orderId, newStatus)
+        .then(response => {
+          if(response){
+            getOrderHistory();
+          }
+        })
+        .catch();
+      }
+      else{
+        requestEditOrderStatus(userToken, orderId, newStatus)
+        .then(response => {
+          if(response){
+            getOrderHistory();
+          }
+        })
+        .catch();
+      }
+    }
+  }
+
   useEffect(() =>{
     getProducts();
     getOrderHistory();
@@ -163,7 +193,7 @@ function AdminPanel() {
         </Section>
         <Section title='Order History:' classes='section--brown'>
           {orderHistory &&
-            <Table columns={orderHistoryColumns} data={orderHistory}/>
+            <Table columns={orderHistoryColumns} data={orderHistory} buttonsMap={orderButtonsMap}/>
           } 
         </Section>
         <Modal openModal={openModal}>

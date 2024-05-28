@@ -25,7 +25,7 @@ function ProductDetails() {
   const [userToken, setUserToken] = useRecoilState<string | undefined>(userTokenState);
   const [product, setProduct] = useState<productInterface>();
   const [resetQuantity, setResetQuantity] = useState<boolean>(false);
-  const setCartNotifications = useSetRecoilState<number>(cartNotificationState);
+  const setCartNotifications = useSetRecoilState<boolean>(cartNotificationState);
   const [productInWishlist, setProductInWishlist] = useState<boolean>(false);
   let quantity = 1;
   const navigate = useNavigate();
@@ -106,6 +106,7 @@ function ProductDetails() {
           .then(response => {
             if(response){
               window.alert(`Added ${quantity} ${product.name} to cart.`);
+              setCartNotifications(true);
             }
           })
           .catch()
@@ -115,6 +116,7 @@ function ProductDetails() {
           .then(response => {
             if(response){
               window.alert(`Added ${quantity} ${product.name} to cart.`);
+              setCartNotifications(true);
             }
           })
           .catch()

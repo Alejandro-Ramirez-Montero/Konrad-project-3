@@ -26,13 +26,13 @@ const ShippingForm:React.FC<ShippingFormProps> = ({nextStep, active}) => {
     const [address1, setAddress1] = useState<string>('');
     const [address2, setAddress2] = useState<string>('');
     const [city, setCity] = useState<string>('');
-    const [province, setProvince] = useState<string>('Select');
+    const [province, setProvince] = useState<string>('San Jose');
     const [zipCode, setZipCode] = useState<string>('');
 
     const [validZipCode, setValidZipCode] = useState<boolean>(true);
     const [validForm, setValidForm] = useState<boolean>(false);
 
-    const handleTextChange = (e: ChangeEvent<HTMLInputElement>, setText: (text:string) => void) => {
+    const handleTextChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>, setText: (text:string) => void) => {
         setText(e.target.value);
     }
 
@@ -73,7 +73,23 @@ const ShippingForm:React.FC<ShippingFormProps> = ({nextStep, active}) => {
         <div className='shipping-form__row'>
             <div className="shipping-form__col">
                 <label htmlFor="province" className='shipping-form__label'><span className='shipping-form__asterisk'>*</span>Province:</label>
-                <input className='shipping-form__input' type="text" id="province" value={province} tabIndex={!active? -1 : 0} onChange={(e:ChangeEvent<HTMLInputElement>)=> handleTextChange(e, setProvince)}/>
+
+            <select
+                  className="shipping-form__input"
+                  name="wishlist-select-size"
+                  id="wishlist-select-size"
+                  value={province}
+                  tabIndex={!active? -1 : 0}
+                  onChange={(e:ChangeEvent<HTMLSelectElement>)=> handleTextChange(e, setProvince)}
+                >
+                  <option value='San Jose' aria-label={'San Jose'}>San Jose</option>
+                  <option value='Guanacaste' aria-label={'Guanacaste'}>Guanacaste</option>
+                  <option value='Puntarenas' aria-label={'Puntarenas'}>Puntarenas</option>
+                  <option value='Cartago' aria-label={'Cartago'}>Cartago</option>
+                  <option value='Alajuela' aria-label={'Alajuela'}>Alajuela</option>
+                  <option value='Heredia' aria-label={'Heredia'}>Heredia</option>
+                  <option value='Limon' aria-label={'Limon'}>Limon</option>
+            </select>
             </div>
             <div className="shipping-form__col">
                 <label htmlFor="city" className='shipping-form__label'><span className='shipping-form__asterisk'>*</span>City:</label>

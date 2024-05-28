@@ -16,7 +16,7 @@ interface LoggedUserInterface {
 }
 
 const Header:React.FC<{scrollToFooter: () => void}> = ({scrollToFooter}) => {
-    const [cartNotifications, setCartNotifications] = useRecoilState<number>(cartNotificationState);
+    const [cartNotifications, setCartNotifications] = useRecoilState<boolean>(cartNotificationState);
     const [loggedUser, setLoggedUser] = useRecoilState<LoggedUserInterface | undefined>(loggedUserState);
     const [userToken, setUserToken] = useRecoilState<string | undefined>(userTokenState);
     const [oppenedMenu, setOppenedMenu] = useState<boolean>(false);
@@ -52,7 +52,7 @@ const Header:React.FC<{scrollToFooter: () => void}> = ({scrollToFooter}) => {
             }
             <button className={`header__button ${loggedUser?.role == 'ADMIN' || loggedUser?.role == 'SUPER_ADMIN'? '' : 'header__button--right'}`} aria-label="Cart" onClick={() => navigate('/cart')}>
                 <FaShoppingCart className="header__icon" color="white" size={30}/>
-                {cartNotifications !== 0? <div className="header__notification"></div> : <></>}
+                {cartNotifications? <div className="header__notification"></div> : <></>}
             </button>
             <button className="header__button" aria-label="Menu" onClick={handleMenu}>
                 <FaBars className="header__icon" color="white" size={30}/>

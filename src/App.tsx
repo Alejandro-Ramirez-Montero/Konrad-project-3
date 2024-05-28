@@ -14,12 +14,13 @@ import SignUp from './views/sign-up/sign-up';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
 import { loggedUserState } from './states/logged-user';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import Wishlist from './views/wishlist/wishlist';
 import { userTokenState } from './states/user-token';
-import { requestUserData } from './utils/functions';
+import { requestCart, requestUserData } from './utils/functions';
 import AdminPanel from './views/admin-panel/admin-panel';
 import OrderHistory from './views/order-history/order-history';
+import { cartNotificationState } from './states/cart-notification-state';
 
 interface LoggedUserInterface {
   email: string;
@@ -80,6 +81,7 @@ const AuthorizedRoute: React.FC<{user:LoggedUserInterface | undefined, children:
 function App() {
   const [loggedUser, setLoggedUser] = useRecoilState<LoggedUserInterface | undefined>(loggedUserState);
   const [userToken, setUserToken] = useRecoilState<string | undefined>(userTokenState);
+  const setCartNotifications = useSetRecoilState<boolean>(cartNotificationState);
   const [doneLoading, setDoneLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -97,9 +99,21 @@ function App() {
         setLoggedUser(undefined);
         setDoneLoading(true);
       });
+
+      requestCart(userToken)
+      .then(response => {
+        if(response && response > 0){
+          setCartNotifications(true);
+        }
+        else{
+          setCartNotifications(false);
+        }
+      })
+      .catch();
     }
     else{
       setDoneLoading(true);
+      setCartNotifications(false);
     }
   },[userToken]);
 

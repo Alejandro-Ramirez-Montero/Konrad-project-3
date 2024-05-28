@@ -1,6 +1,6 @@
 import './checkout.scss'
 import { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
 import Section from '../../components/section/section'
 import ShippingForm from '../../components/shipping-form/shipping-form';
@@ -11,6 +11,7 @@ import { requestCart, requestConvertCartToOrder, requestGetCartTotal } from '../
 import Modal from '../../components/modal/modal';
 import { checkoutState } from '../../states/checkout-state';
 import { useNavigate } from 'react-router-dom';
+import { cartNotificationState } from '../../states/cart-notification-state';
 
 
 interface orderDetailsInterface {
@@ -45,6 +46,7 @@ interface cartProductInterface {
 
 function Checkout() {
   const [userToken, setUserToken] = useRecoilState<string | undefined>(userTokenState);
+  const setCartNotifications = useSetRecoilState<boolean>(cartNotificationState);
   const checkoutInfo = useRecoilValue<CheckoutInterface>(checkoutState);
   const [total, SetTotal] = useState<number>(0);
   const [subtotal, setSubtotal] = useState<number>(0);
@@ -132,6 +134,7 @@ function Checkout() {
       .then(response => {
         if(response){
           setOpenModal(true);
+          setCartNotifications(false);
         }
       })
       .catch();
@@ -161,7 +164,7 @@ function Checkout() {
           <Section title='Shipping information' classes={`section--woods-bg ${step != 1? 'section--minimize section__title--minimize' : ''}`}>
             <ShippingForm nextStep={() => nextStep()} active={step == 1}/>
           </Section>
-          <Section title='Payment Information' classes={`section--dark-blue ${step != 2? 'section--minimize section__title--minimize' : ''}`}>
+          <Section title='Payment Information' classes={`section--brown ${step != 2? 'section--minimize section__title--minimize' : ''}`}>
             <PaymentForm previousStep={() => previousStep()} nextStep={() => nextStep()} active={step == 2}/>
           </Section>
           <Section title='Review and Pay' classes={`section--camping-bg ${step != 3? 'section--minimize section__title--minimize' : ''}`}>
